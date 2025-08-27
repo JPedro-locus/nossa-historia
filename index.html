@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comemorando Nosso Amor</title>
+  <style>
+    /* reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Helvetica Neue', Arial, sans-serif;
+      color:#fff;
+      /* fundo degradê azul */
+      background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+      line-height:1.4;
+    }
+    .wrapper { max-width:800px; margin:0 auto; padding:20px; }
+
+    /* coração e contador */
+    .hero { text-align:center; padding:40px 0; }
+    .hero .heart {
+      font-size:80px;
+      /* cor azul para o coração */
+      color: #0072ff;
+      animation:heartbeat 1s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%,100%{transform:scale(1)} 
+      25%,75%{transform:scale(1.2)} 
+      50%{transform:scale(1)}
+    }
+    .hero h1 { font-size:1.8em; margin:20px 0 10px; }
+    .hero p  { font-size:1.2em; }
+
+    /* timeline */
+    .timeline {
+      position: relative;
+      margin:60px 0;
+      padding-left:30px;
+    }
+    .timeline::before {
+      content:'';
+      position:absolute;
+      left:15px; top:0; bottom:0;
+      width:4px;
+      background:rgba(255,255,255,0.5);
+    }
+    .timeline-item {
+      position:relative;
+      margin-bottom:60px;
+      padding-left:20px;
+    }
+    .timeline-item .image-container {
+      width:100%;
+      max-width:600px;
+      margin:0 auto;
+    }
+    .timeline-item img,
+    .timeline-item video {
+      width:100%;
+      border-radius:8px;
+      display:block;
+    }
+    .timeline-item .caption {
+      margin-top:8px;
+      font-size:1em;
+      text-align:center;
+    }
+
+    /* carousel */
+    .carousel {
+      margin:60px 0;
+    }
+    .carousel h2 {
+      margin-bottom:10px;
+      text-align:center;
+      font-size:1.4em;
+    }
+    .carousel-track {
+      display:flex;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .slide {
+      flex:0 0 auto;
+      scroll-snap-align:center;
+      width:80%;
+      max-width:300px;
+      margin-right:20px;
+    }
+    .slide img {
+      width:100%;
+      border-radius:8px;
+    }
+
+    /* botão de play */
+    #play-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    /* esconde player nativo */
+    #bg-music { display: none; }
+
+    /* responsividade */
+    @media (min-width:600px) {
+      .hero .heart { font-size:120px; }
+      .hero h1     { font-size:2.5em; }
+      .hero p      { font-size:1.4em; }
+    }
+
+    /* estilização do h1 final */
+    .love {
+      text-align: center;
+      margin: 40px 0;
+      font-size: 2em;
+    }
+    @media (min-width:600px) {
+      .love { font-size:2.5em; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- áudio em loop, acionado por interação -->
+  <audio id="bg-music" src="hungriahiphop-preta-feat-joao-carlos-martins-77a8c819.mp3" loop></audio>
+  <button id="play-btn">▶️ Tocar Música</button>
+
+  <div class="wrapper">
+
+    <h1 class="love">Às vezes quando você menos espera vem a vida e te surpreende</h1>
+
+    <!-- seção do contador -->
+    <div class="hero">
+      <div class="heart">💙</div>
+      <h1 id="counter">Carregando...</h1>
+      <p id="message">Carregando...</p>
+    </div>
+
+    <!-- trilha de fotos -->
+    <div class="timeline">
+      <div class="timeline-item">
+        <h1 class="caption">Mas obiviamente tivemos que ter um começo e aqui temos a trilha desse começo</h1>
+      </div>
+      <!-- 1º encontro -->
+      <div class="timeline-item">
+        <div class="image-container">
+          <img src="e19b8a8bf6703b0869eb70a82231cfcf.jpg" alt="Nosso primeiro encontro"/>
+        </div>
+        <p class="caption">Nos em nosso primeiro encontro</p>
+      </div>
+      <!-- legenda entre 1ª e 2ª foto -->
+      <div class="timeline-item">
+        <p class="caption">“Por um momento eu quis te estrangular de tantas desculpas, mas aí veio…”</p>
+      </div>
+      <!-- momentos marcantes -->
+      <div class="timeline-item">
+        <div class="image-container">
+          <img src="IMG-20250625-WA0005.jpg" alt="Momentos marcantes"/>
+        </div>
+        <p class="caption">Nossos momentos marcantes</p>
+      </div>
+      <!-- rotina -->
+      <div class="timeline-item">
+        <p class="caption">“Do nada comecei a fazer parte da tua rotina”</p>
+      </div>
+      <!-- primeiro mês -->
+      <div class="timeline-item">
+        <div class="image-container">
+          <img src="20250705_220219(1).jpg" alt="Nosso primeiro mês"/>
+        </div>
+        <p class="caption">Chegou o nosso primeiro mês</p>
+      </div>
+      <!-- vídeo de covers -->
+      <div class="timeline-item">
+        <div class="image-container">
+          <video controls>
+            <source src="20250706_180941_1_1.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo.
+          </video>
+        </div>
+        <p class="caption">Nossos covers juntos 😂🎤</p>
+      </div>
+      <!-- praia -->
+      <div class="timeline-item">
+        <div class="image-container">
+          <img src="20250716_161809.jpg" alt="Passeio à praia"/>
+        </div>
+        <p class="caption">Finalmente te levei à praia 🏖️</p>
+      </div>
+    </div>
+
+    <!-- carrossel final -->
+    <div class="carousel">
+      <h2> E continuamos escrevendo nossa história…</h2>
+      <div class="carousel-track">
+        <div class="slide"><img src="20250623_200023.jpg" alt="Foto 5"/></div>
+        <div class="slide"><img src="20250624_183546(1).jpg" alt="Foto 6"/></div>
+        <div class="slide"><img src="20250629_202254.jpg" alt="Foto 7"/></div>
+        <div class="slide"><img src="20250704_195513.jpg" alt="Foto 8"/></div>
+        <div class="slide"><img src="20250705_191530.jpg" alt="Foto 9"/></div>
+        <div class="slide"><img src="20250705_220549.jpg" alt="Foto 10"/></div>
+        <div class="slide"><img src="20250716_164040.jpg" alt="Foto 11"/></div>
+        <div class="slide"><img src="20250719_162935.jpg" alt="Foto 12"/></div>
+        <div class="slide"><img src="20250719_163630.jpg" alt="Foto 13"/></div>
+        <div class="slide"><img src="IMG_20250725_204801_957.webp" alt="Foto 14"/></div>
+      </div>
+    </div>
+
+    <h2>E ainda temos muitos capítulos para adicionar nessa trilha</h2>
+    <h3>Histórias para contar, rir e sonhar</h3>
+    <h3>e acima de tudo muito tempo para poder te amar e fazer feliz</h3>
+    <h1 class="love">Te amo mil milhões meu amor 💙</h1>
+
+  </div>
+
+  <script>
+    // contador desde 06/06/2025
+    function updateCounter() {
+      const start = new Date(2025,5,6,0,0,0);
+      const now = new Date();
+      let y = now.getFullYear() - start.getFullYear();
+      let m = now.getMonth() - start.getMonth();
+      let d = now.getDate() - start.getDate();
+      let h = now.getHours() - start.getHours();
+      let min = now.getMinutes() - start.getMinutes();
+      let s = now.getSeconds() - start.getSeconds();
+
+      if (s<0){ s+=60; min--; }
+      if (min<0){ min+=60; h--; }
+      if (h<0){ h+=24; d--; }
+      if (d<0){
+        const prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        d += prevMonthDays; m--;
+      }
+      if (m<0){ m+=12; y--; }
+
+      const totalMonths = y*12 + m;
+      const text = `Hoje fazem ${totalMonths} ${totalMonths===1?'mês':'meses'} `+
+                   `${d} dia${d===1?'':'s'} `+
+                   `${h} hora${h===1?'':'s'} `+
+                   `${min} minuto${min===1?'':'s'} e `+
+                   `${s} segundo${s===1?'':'s'} desde do nosso primeiro oi.`;
+      document.getElementById('counter').textContent = text;
+
+      let msg;
+      if (y>0){
+        const anos = y===1?'1 ano':`${y} anos`;
+        const meses = m===1?'1 mês':`${m} meses`;
+        msg = `Feliz ${anos} e ${meses} de namoro!`;
+      } else {
+        msg = `Feliz ${totalMonths} ${totalMonths===1?'mês':'meses'} de namoro!`;
+      }
+      document.getElementById('message').textContent = msg;
+    }
+
+    updateCounter();
+    setInterval(updateCounter,1000);
+
+    // controle do áudio
+    const audio = document.getElementById('bg-music');
+    const btn   = document.getElementById('play-btn');
+    btn.addEventListener('click', () => {
+      audio.play()
+        .then(() => btn.style.display = 'none')
+        .catch(err => console.error('Erro ao tocar áudio:', err));
+    });
+    window.addEventListener('scroll', () => {
+      if (audio.paused) {
+        audio.play().catch(()=>{});
+        btn.style.display = 'none';
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>
