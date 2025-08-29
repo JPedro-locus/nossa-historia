@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Comemorando Nosso Amor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     /* reset */
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -39,74 +40,38 @@
       padding-left:30px;
     }
     .timeline::before {
-      content:'';
-      position:absolute;
-      left:15px; top:0; bottom:0;
-      width:4px;
-      background:rgba(255,255,255,0.5);
+      content:''; position:absolute; left:15px; top:0; bottom:0;
+      width:4px; background:rgba(255,255,255,0.5);
     }
     .timeline-item {
-      position:relative;
-      margin-bottom:60px;
-      padding-left:20px;
+      position:relative; margin-bottom:60px; padding-left:20px;
     }
     .timeline-item .image-container {
-      width:100%;
-      max-width:600px;
-      margin:0 auto;
+      width:100%; max-width:600px; margin:0 auto;
     }
     .timeline-item img,
     .timeline-item video {
-      width:100%;
-      border-radius:8px;
-      display:block;
+      width:100%; border-radius:8px; display:block;
     }
     .timeline-item .caption {
-      margin-top:8px;
-      font-size:1em;
-      text-align:center;
+      margin-top:8px; font-size:1em; text-align:center;
     }
 
     /* carousel */
-    .carousel {
-      margin:60px 0;
-    }
-    .carousel h2 {
-      margin-bottom:10px;
-      text-align:center;
-      font-size:1.4em;
-    }
+    .carousel { margin:60px 0; }
+    .carousel h2 { margin-bottom:10px; text-align:center; font-size:1.4em; }
     .carousel-track {
-      display:flex;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling: touch;
+      display:flex; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling: touch;
     }
-    .slide {
-      flex:0 0 auto;
-      scroll-snap-align:center;
-      width:80%;
-      max-width:300px;
-      margin-right:20px;
-    }
-    .slide img {
-      width:100%;
-      border-radius:8px;
-    }
+    .slide { flex:0 0 auto; scroll-snap-align:center; width:80%; max-width:300px; margin-right:20px; }
+    .slide img { width:100%; border-radius:8px; }
 
     /* botão de play */
     #play-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      z-index: 1000;
+      position: fixed; bottom: 20px; right: 20px;
+      background: rgba(0,0,0,0.6); color: #fff; border: none;
+      padding: 10px 15px; border-radius: 5px; font-size: 1em;
+      cursor: pointer; z-index: 1000;
     }
     /* esconde player nativo */
     #bg-music { display: none; }
@@ -119,14 +84,302 @@
     }
 
     /* estilização do h1 final */
-    .love {
-      text-align: center;
-      margin: 40px 0;
-      font-size: 2em;
+    .love { text-align: center; margin: 40px 0; font-size: 2em; }
+    @media (min-width:600px) { .love { font-size:2.5em; } }
+
+    /* ======== 3 MESES (tm-*) ======== */
+    .tm-section { margin: 60px 0; text-align:center; }
+    .tm-type { 
+      display:inline-block; 
+      border-right: 2px solid rgba(255,255,255,0.8);
+      white-space: nowrap; overflow: hidden; 
+      font-size: 1.6em; padding: 6px 4px; min-height: 1.6em;
     }
-    @media (min-width:600px) {
-      .love { font-size:2.5em; }
+    .tm-question { margin: 22px 0 14px; font-size: 1.2em; opacity: .95; text-align: center }
+    .tm-actions { position: relative; display: inline-block; min-height: 54px; }
+    .tm-btn {
+      display:inline-block; margin: 6px 8px; padding: 10px 16px;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,0.6);
+      background: rgba(0,0,0,0.25); color:#fff; cursor:pointer; user-select:none;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
     }
+    .tm-btn:hover { transform: translateY(-1px); background: rgba(0,0,0,0.35); }
+    /* “Não” que foge */
+    .tm-btn-no { position: absolute; left: 110px; top: 0; }
+
+    /* Envelope animado */
+    .tm-envelope-wrap { 
+      margin: 28px auto 0;
+      width: 360px;                /* um pouquinho mais largo para ficar elegante */
+      max-width: 92%;
+      perspective: 1000px;
+      display: none;               /* aparece ao clicar em "Sim" */
+    }
+
+    .tm-envelope { 
+      position: relative;
+      margin: 0 auto;              /* centraliza */
+      width: 100%;
+      height: 220px;               /* fechado */
+      transition: height .6s ease; /* anima quando abre/fecha */
+    }
+
+    /* fundo do envelope (retângulo) */
+    .tm-env-back {
+      position:absolute; inset:0;
+      background:#f5f5f5;
+      border-radius:12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+
+    /* flap (triângulo) perfeitamente central */
+    .tm-env-flap {
+      position:absolute; left:50%; top:0; height:58%; width: 86%;
+      transform: translateX(-50%);               /* centraliza o triângulo */
+      background:#e9e9e9; transform-origin: top;
+      border-top-left-radius:12px; border-top-right-radius:12px;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transition: transform 0.8s cubic-bezier(.23,1,.32,1);
+      z-index: 2;
+    }
+
+    /* Carta: bloco próprio, não “segue” o flap */
+    .tm-letter {
+      position:absolute; 
+      left:50%; transform: translateX(-50%);     /* centraliza perfeitamente */
+      top: 74px;                                  /* fica abaixo do triângulo */
+      width: calc(100% - 40px);                   /* margens laterais iguais */
+      bottom: 12px;
+      background:#fff; border-radius:10px; 
+      overflow:hidden;                            /* fechado: oculta conteúdo */
+      display:flex; flex-direction:column;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      height: 0;                                  /* FECHADO */
+      transition: height 0.8s cubic-bezier(.23,1,.32,1) 0.2s;
+    }
+
+    /* Conteúdo com scroll interno */
+    .tm-letter-content { 
+      padding:16px 18px; color:#333; text-align:left; line-height:1.5;
+      flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    }
+
+    /* Estado ABERTO */
+    .tm-envelope.open { height: clamp(360px, 62vh, 560px); } /* simétrico e responsivo */
+    .tm-envelope.open .tm-env-flap { transform: translateX(-50%) rotateX(-180deg); }
+    .tm-envelope.open .tm-letter { height: calc(100% - 94px); } /* ocupa o espaço do retângulo */
+
+    /* Título e typewriter da carta */
+    .tm-letter-title { font-weight:700; margin-bottom:6px; color:#0072ff; }
+    .tm-letter-typed {
+      border-right:2px solid rgba(0,0,0,.5);
+      white-space: pre-wrap; overflow-wrap:anywhere; min-height:3em;
+    }
+
+    /* Botão de fechar */
+    .tm-close {
+      position:absolute; right:10px; top:10px; z-index:3;
+      background: rgba(0,0,0,.08); border:0; border-radius:8px;
+      padding:6px 10px; font-weight:600; color:#333; cursor:pointer;
+    }
+    .tm-close:hover { background: rgba(0,0,0,.14); }
+
+    @media (max-width:420px){ .tm-type { font-size: 1.3em; } }
+    :root{
+      --env-width: clamp(460px, 72vw, 680px); /* ↑ mais largo em desktop, responsivo */
+      --flap-height: 42%;                     /* ↓ flap mais curto */
+      --letter-top: 76px;                      /* distância do topo da carta */
+    }
+
+    /* wrapper mais largo */
+    .tm-envelope-wrap{
+      width: var(--env-width);
+      max-width: 96%;
+    }
+
+    /* fundo com leve brilho */
+    .tm-env-back{
+      background: linear-gradient(180deg, #fefefe 0%, #f3f3f3 100%);
+      border-radius: 14px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.25);
+    }
+
+    /* flap central com degradê e sombra suave */
+    .tm-env-flap{
+      height: var(--flap-height);
+      width: 92%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, #fafafa 0%, #eaeaea 70%);
+      border-top-left-radius: 14px;
+      border-top-right-radius: 14px;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.14));
+    }
+
+    /* linha de dobra sutil */
+    .tm-env-flap::after{
+      content:''; position:absolute;
+      left:10%; right:10%;
+      bottom:-1px;
+      height:2px;
+      border-radius:1px;
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,.12), transparent);
+    }
+
+    /* carta mais larga e com altura baseada no offset do flap */
+    .tm-letter{
+      top: var(--letter-top);
+      width: calc(100% - 48px);
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    }
+
+    /* envelope aberto: um pouco mais alto */
+    .tm-envelope.open{
+      height: clamp(420px, 64vh, 620px);
+    }
+
+    /* altura da carta quando aberto (usa a var --letter-top) */
+    .tm-envelope.open .tm-letter{
+      height: calc(100% - (var(--letter-top) + 16px));
+    }
+
+    /* respiro do conteúdo */
+    .tm-letter-content{ padding: 18px 20px; }
+
+    /* título destacado (mantém sua cor) */
+    .tm-letter-title{ font-weight: 700; color:#0072ff; }
+
+    /* ajustes mobile */
+    @media (max-width: 480px){
+      :root{
+        --env-width: 92vw;
+        --flap-height: 46%;
+        --letter-top: 72px;
+      }
+    }
+
+    .reasons-list{ list-style:none; margin:12px auto; padding:0; max-width:560px; }
+    .reasons-list li{
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.5);
+      padding:10px 14px; border-radius:10px; margin:8px 0;
+    }
+
+    /* ======== POLAROID ======== */
+    .polaroid{
+      background:#fff; color:#333;
+      padding:8px 8px 26px; border-radius:10px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.28);
+      transform: rotate(var(--rot, -1.5deg));
+      margin: 12px auto;
+    }
+    .polaroid img{ width:100%; display:block; border-radius:6px; }
+    .polaroid small{
+      display:block; text-align:center; margin-top:8px;
+      font-family: "Patrick Hand", "Comic Sans MS", cursive;
+      color:#333;
+    }
+    /* Ajustes dentro do carrossel */
+    .slide .polaroid{ margin:0; }
+
+    /* ======== BOUQUET v2 ======== */
+    .bouquet-wrap{ text-align:center; margin:48px 0 24px; }
+    .bouquet-title{ margin-bottom:10px; font-size:1.6em; }
+
+    .bouquet{
+      width:min(92vw, 440px);
+      margin:0 auto;
+      cursor:pointer;
+      user-select:none;
+      touch-action:manipulation;
+      filter: drop-shadow(0 12px 22px rgba(0,0,0,.25));
+      position: relative;         /* para flutuantes ficarem dentro */
+    }
+    .bouquet svg{ width:100%; height:auto; overflow:visible; }
+
+    /* cone (papel) + fita */
+    .cone{
+      fill:#f3dfb8;
+      stroke:#a88f60; stroke-width:2.2;
+      opacity:0;
+      transform: translateY(18px) scale(.92);
+      transform-origin:50% 100%;
+      transition: transform .7s cubic-bezier(.2,1,.2,1) .2s, opacity .6s ease .2s;
+    }
+    .ribbon{ fill:#ff8fa3; stroke:#d96b82; stroke-width:1.8; opacity:0; transition: opacity .5s ease .65s; }
+    .bouquet.active .cone{ opacity:1; transform: translateY(0) scale(1); }
+    .bouquet.active .ribbon{ opacity:1; }
+
+    /* “copa” das flores balança suavemente quando aberto */
+    .head{ transform-origin:200px 180px; }
+    @keyframes sway { 0%,100%{transform:rotate(-1.2deg)} 50%{transform:rotate(1.2deg)} }
+    .bouquet.active .head{ animation: sway 3.6s ease-in-out .9s infinite; }
+
+    /* caules curvos “desenhados” */
+    .stem{
+      stroke:#2e8b57; stroke-width:4; fill:none; stroke-linecap:round;
+      stroke-dasharray: var(--len, 1); 
+      stroke-dashoffset: var(--len, 1);
+      transition: stroke-dashoffset 1.15s ease var(--delay, 0s);
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,.18));
+    }
+    .bouquet.active .stem{ stroke-dashoffset: 0; }
+
+    /* folhinhas */
+    .leaf{
+      fill:#3aa96b; opacity:0; transform-origin:center;
+      transform: scale(.8);
+      transition: opacity .5s ease var(--delay, 0s), transform .5s ease var(--delay, 0s);
+    }
+    .bouquet.active .leaf{ opacity:1; transform: scale(1); }
+
+    /* flor como grupo: surge, depois pétalas abrem em cascata */
+    .flower{
+      transform: scale(0) rotate(-6deg);
+      transform-origin: center;
+      opacity:0;
+      transition: transform .6s cubic-bezier(.2,1,.2,1) var(--delay, 0s), opacity .6s ease var(--delay, 0s);
+    }
+    .bouquet.active .flower{ transform: scale(1) rotate(0deg); opacity:1; }
+
+    /* pétalas desabrochando */
+    .petal{
+      transform-origin: var(--cx) var(--cy);
+      transform: scale(.1) rotate(var(--rot, 0deg));
+      opacity:0;
+      transition: transform .46s cubic-bezier(.2,1.1,.2,1) calc(var(--delay, 0s) + var(--i,0)*.06s),
+                  opacity .46s ease calc(var(--delay, 0s) + var(--i,0)*.06s);
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,.12));
+    }
+    .bouquet.active .petal{ transform: scale(1) rotate(var(--rot, 0deg)); opacity:1; }
+
+    /* miolo da flor */
+    .core{
+      fill:#ffd166; stroke:#caa534; stroke-width:1.2;
+      opacity:0; transform: scale(.6);
+      transition: opacity .4s ease var(--delay, 0s), transform .4s ease var(--delay, 0s);
+    }
+    .bouquet.active .core{ opacity:1; transform: scale(1); }
+
+    /* botão */
+    #bouquet-toggle{ margin-top:10px; }
+
+    /* ======== FLORETES/✨ FLUTUANTES ======== */
+    .floater{
+      position:absolute; z-index:3; pointer-events:none;
+      font-size:18px;
+      opacity:0;
+      animation: floatRise var(--dur,2.2s) ease-out var(--delay,0s) forwards;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+    }
+    @keyframes floatRise{
+      0%   { transform: translate(var(--x0,0), var(--y0,0)) scale(.8) rotate(var(--r0,0deg)); opacity:0; }
+      10%  { opacity:1; }
+      100% { transform: translate(var(--x1,40px), calc(var(--y0,0) - 160px)) scale(1.25) rotate(var(--r1,15deg)); opacity:0; }
+    }
+
   </style>
 </head>
 
@@ -149,14 +402,14 @@
     <!-- trilha de fotos -->
     <div class="timeline">
       <div class="timeline-item">
-        <h1 class="caption">Mas obiviamente tivemos que ter um começo e aqui temos a trilha desse começo</h1>
+        <h1 class="caption">Mas obviamente tivemos que ter um começo e aqui temos a trilha desse começo</h1>
       </div>
       <!-- 1º encontro -->
       <div class="timeline-item">
         <div class="image-container">
           <img src="./images/e19b8a8bf6703b0869eb70a82231cfcf.jpg" alt="Nosso primeiro encontro"/>
         </div>
-        <p class="caption">Nos em nosso primeiro encontro</p>
+        <p class="caption">Nós em nosso primeiro encontro</p>
       </div>
       <!-- legenda entre 1ª e 2ª foto -->
       <div class="timeline-item">
@@ -219,9 +472,94 @@
     <h2>E ainda temos muitos capítulos para adicionar nessa trilha</h2>
     <h3>Histórias para contar, rir e sonhar</h3>
     <h3>e acima de tudo muito tempo para poder te amar e fazer feliz</h3>
-    <h1 class="love">Te amo mil milhões meu amor 💙</h1>
+    <h2 class="love">Te amo mil milhões meu amor 💙</h2>
+
+    <!-- ======== BLOCO 3 MESES ======== -->
+    <section class="tm-section" id="tm-three-months">
+      <div class="tm-type" id="tm-typewriter"></div>
+
+      <p class="tm-question">Promete mais 3, 6, 12 meses (e uma vida inteira) comigo? 🥹💙</p>
+
+      <div class="tm-actions" id="tm-actions">
+        <button class="tm-btn tm-btn-yes" id="tm-yes">Sim 💙</button>
+        <button class="tm-btn tm-btn-no" id="tm-no">Não 😜</button>
+      </div>
+
+      <!-- Envelope + carta -->
+      <div class="tm-envelope-wrap" id="tm-envelope-wrap">
+        <div class="tm-envelope" id="tm-envelope">
+          <button class="tm-close" id="tm-close" aria-label="Fechar carta">✖ Fechar</button>
+          <div class="tm-env-back"></div>
+          <div class="tm-env-flap"></div>
+          <div class="tm-letter">
+            <div class="tm-letter-content">
+              <div class="tm-letter-title">Carta para o nosso 3º mês ✨</div>
+              <div id="tm-letter-text" class="tm-letter-typed"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tm-section" id="reasons">
+      <h1>10 razões pelas quais te amo</h1>
+      <ul class="reasons-list" id="reasons-list"></ul>
+      <button class="tm-btn" id="reasons-next">Mostrar próxima 💌</button>
+    </section>
+
+    <section class="bouquet-wrap">
+      <h2 class="bouquet-title">Um buquê só seu 💐 (toque para abrir)</h2>
+      <h3 class="tm-question">Tive a ideia de um buquê por que foi um dos primeiros presentes que te dei e e não consigo me esquecer da tua felicidade e do que você falou quando recebeu, que aquilo era um dos seus sonhos, poder receber flores e sinceramente ali foi um dos momentos que me deixaram mais feliz e por isso que o buque sempre tem tanto significado, por isso que eu quis fazer algo especial para você. o motivo do buque eterni de lego também e agora um que nunca vai poder ser apagado</h3>
+
+      <div id="bouquet" class="bouquet" aria-label="Buquê animado" title="Clique/Toque para abrir">
+        <svg viewBox="0 0 400 420" role="img" aria-labelledby="bouquetTitle">
+          <title id="bouquetTitle">Buquê de flores animado</title>
+
+          <!-- cone de papel -->
+          <path class="cone" d="M200,380 L120,300 Q200,260 280,300 Z"/>
+          <!-- fita -->
+          <path class="ribbon" d="M190 310 q10 10 20 0 q9 -8 22 -4 q-11 16 -42 16 q-24 0 -36 -8 q15 -6 36 -4z"/>
+
+          <!-- caules (curvos) -->
+          <g class="stems">
+            <path class="stem" data-len d="M200 318 Q160 250 140 182" style="--delay:.05s"/>
+            <path class="stem" data-len d="M200 318 Q176 238 180 158" style="--delay:.10s"/>
+            <path class="stem" data-len d="M200 318 Q200 230 200 140" style="--delay:.15s"/>
+            <path class="stem" data-len d="M200 318 Q220 236 220 150" style="--delay:.20s"/>
+            <path class="stem" data-len d="M200 318 Q240 250 260 180" style="--delay:.25s"/>
+            <path class="stem" data-len d="M200 318 Q150 246 120 210" style="--delay:.30s"/>
+            <path class="stem" data-len d="M200 318 Q250 246 280 210" style="--delay:.35s"/>
+          </g>
+
+          <!-- folhas -->
+          <ellipse class="leaf" cx="168" cy="230" rx="10" ry="5" transform="rotate(-30 168 230)" style="--delay:.55s"/>
+          <ellipse class="leaf" cx="232" cy="230" rx="10" ry="5" transform="rotate(30 232 230)"  style="--delay:.60s"/>
+          <ellipse class="leaf" cx="150" cy="205" rx="9"  ry="5" transform="rotate(-24 150 205)" style="--delay:.62s"/>
+          <ellipse class="leaf" cx="250" cy="205" rx="9"  ry="5" transform="rotate(24 250 205)"  style="--delay:.64s"/>
+          <path class="leaf" d="M196 318 q6 -10 12 0 q-6 10 -12 0z" style="--delay:.66s"/>
+
+          <!-- cabeça do buquê (balanço) -->
+          <g class="head">
+            <!-- marcadores de flores: o JS gera pétalas e miolo -->
+            <g class="flower" data-cx="140" data-cy="180" data-color="#ff7aa2" style="--delay:.85s"></g>
+            <g class="flower" data-cx="180" data-cy="160" data-color="#f7b267" style="--delay:.95s"></g>
+            <g class="flower" data-cx="200" data-cy="140" data-color="#b892ff" style="--delay:1.05s"></g>
+            <g class="flower" data-cx="220" data-cy="150" data-color="#63d2ff" style="--delay:1.15s"></g>
+            <g class="flower" data-cx="260" data-cy="180" data-color="#ffa3a3" style="--delay:1.25s"></g>
+            <g class="flower" data-cx="120" data-cy="210" data-color="#ffd166" style="--delay:1.35s"></g>
+            <g class="flower" data-cx="280" data-cy="210" data-color="#9ae66e" style="--delay:1.45s"></g>
+          </g>
+        </svg>
+      </div>
+
+      <button class="tm-btn" id="bouquet-toggle">Abrir buquê 💐</button>
+    </section>
+
 
   </div>
+
+  <!-- confetti lib -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
     // contador desde 06/06/2025
@@ -280,6 +618,337 @@
         btn.style.display = 'none';
       }
     }, { once: true });
+
+    /* ======== TYPEWRITER DO TÍTULO (3 MESES) ======== */
+    (function(){
+      const el = document.getElementById('tm-typewriter');
+      const text = 'Chegamos aos nossos 3 meses! 💙';
+      let i = 0;
+      function type() {
+        if (i <= text.length) {
+          el.textContent = text.slice(0, i);
+          i++;
+          setTimeout(type, 55);
+        }
+      }
+      type();
+    })();
+
+    /* ======== BOTÃO "NÃO" QUE FOGE ======== */
+    (function(){
+      const noBtn = document.getElementById('tm-no');
+      const container = document.getElementById('tm-actions');
+
+      // calcula posição aleatória
+      function moveButton() {
+        const pad = 20;
+        const cw = container.clientWidth - noBtn.offsetWidth - pad;
+        const ch = 100; // mais espaço vertical
+        const x = Math.max(0, Math.floor(Math.random() * cw));
+        const y = Math.max(0, Math.floor(Math.random() * ch));
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+      }
+
+      // foge quando mouse chega perto
+      container.addEventListener('mousemove', (e) => {
+        const rect = noBtn.getBoundingClientRect();
+        const btnCenterX = rect.left + rect.width / 2;
+        const btnCenterY = rect.top + rect.height / 2;
+
+        // distância do mouse até o centro do botão
+        const dist = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+        if (dist < 100) { // se mouse chegar a menos de 100px, ele foge
+          moveButton();
+        }
+      });
+
+      // foge também se tentar clicar direto
+      noBtn.addEventListener('mousedown', moveButton);
+
+      // em touch (mobile), sempre foge
+      noBtn.addEventListener('touchstart', function(e){
+        e.preventDefault();
+        moveButton();
+      }, {passive:false});
+    })();
+
+    /* ======== AÇÃO DO "SIM": CONFETTI + CARTA ABRINDO + DIGITAÇÃO ======== */
+    (function(){
+      const yesBtn = document.getElementById('tm-yes');
+      const noBtn  = document.getElementById('tm-no');
+      const envWrap = document.getElementById('tm-envelope-wrap');
+      const envelope = document.getElementById('tm-envelope');
+      const letterText = document.getElementById('tm-letter-text');
+      const closeBtn = document.getElementById('tm-close');
+
+      const message = 
+    `Meu amor,
+
+    Obrigado por cada dia desde o nosso primeiro “oi”.
+    Nestes 3 meses, você virou casa, porto seguro e o meu lugar favorito.
+    Prometo cuidar de você, te fazer sorrir nos dias fáceis e te abraçar nos difíceis.
+
+    Te amo mil milhões. 💙`;
+
+      function fireConfetti() {
+        const duration = 2000;
+        const end = Date.now() + duration;
+        (function frame() {
+          confetti({ particleCount: 6, spread: 70, origin: { x: Math.random(), y: Math.random() * 0.6 } });
+          if (Date.now() < end) requestAnimationFrame(frame);
+        })();
+        confetti({ particleCount: 120, spread: 90, angle: 60, origin: { x: 0,   y: 0.6 } });
+        confetti({ particleCount: 120, spread: 90, angle: 120, origin: { x: 1,  y: 0.6 } });
+      }
+
+      function typeLetter(text, targetEl, speed=18) {
+        targetEl.textContent = '';
+        targetEl.style.borderRightColor = 'rgba(0,0,0,.5)';
+        let i = 0;
+        const timer = setInterval(() => {
+          targetEl.textContent = text.slice(0, i);
+          i++;
+          if (i > text.length) {
+            clearInterval(timer);
+            targetEl.style.borderRightColor = 'transparent';
+          }
+        }, speed);
+      }
+
+      yesBtn.addEventListener('click', () => {
+        yesBtn.disabled = true; noBtn.disabled = true;
+        yesBtn.style.opacity = .6; noBtn.style.opacity = .6;
+
+        fireConfetti();
+
+        envWrap.style.display = 'block';
+        envelope.getBoundingClientRect();      // reflow pra iniciar animação
+        envelope.classList.add('open');
+
+        setTimeout(() => { typeLetter(message, letterText); }, 800);
+      });
+
+      // Fechar carta
+      closeBtn.addEventListener('click', () => {
+        // para mostrar o resto da página, recolhe o envelope
+        envelope.classList.remove('open');      // flap desce e carta recolhe
+        // limpa o caret se estava no meio da digitação
+        letterText.style.borderRightColor = 'transparent';
+
+        // aguarda a animação terminar e esconde o bloco
+        setTimeout(() => {
+          envWrap.style.display = 'none';
+          // reabilita os botões (se quiser permitir abrir novamente)
+          yesBtn.disabled = false; noBtn.disabled = false;
+          yesBtn.style.opacity = 1; noBtn.style.opacity = 1;
+
+          // rola suavemente para o título “Chegamos aos nossos 3 meses!”
+          document.getElementById('tm-three-months')
+                  .scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 650);
+      });
+    })();
+
+    (function reasonsList(){
+      const REASONS = [
+        "Você me faz rir até quando eu não quero.",
+        "Seu abraço é meu lugar favorito.",
+        "A forma como você cuida de mim.",
+        "Seu jeitinho quando está concentrada(o).",
+        "Nossos covers sem vergonha 😂🎤",
+        "Como tudo fica mais leve com você.",
+        "Sua coragem e seus sonhos.",
+        "Seu olhar quando fala do que ama.",
+        "Nossos planos bobos e os gigantes.",
+        "Porque com você, tudo faz sentido."
+      ];
+
+      const ul = document.getElementById('reasons-list');
+      const btn = document.getElementById('reasons-next');
+      let i = 0;
+
+      btn.addEventListener('click', () => {
+        if(i < REASONS.length){
+          const li = document.createElement('li');
+          li.textContent = REASONS[i++];
+          ul.appendChild(li);
+          if(i === REASONS.length){
+            btn.textContent = "Fim 💙";
+            btn.disabled = true;
+            btn.style.opacity = .7;
+          }
+        }
+      });
+    })();
+
+    /* ======== POLAROIDIFY: aplica moldura a TODAS as fotos ======== */
+    (function polaroidify(){
+      const selectors = [
+        '.timeline .timeline-item .image-container img',
+        '.carousel .slide img'
+      ].join(',');
+
+      const imgs = document.querySelectorAll(selectors);
+
+      imgs.forEach((img) => {
+        // evita duplicar
+        if (img.closest('.polaroid')) return;
+
+        // cria moldura
+        const frame = document.createElement('div');
+        frame.className = 'polaroid';
+        // rotação aleatória suave
+        const rot = (Math.random() * 3 - 1.5).toFixed(2) + 'deg';
+        frame.style.setProperty('--rot', rot);
+
+        // insere e move a imagem pra dentro
+        const parent = img.parentNode;
+        parent.insertBefore(frame, img);
+        frame.appendChild(img);
+
+        // legenda: tenta pegar a legenda <p.caption> seguinte (na timeline),
+        // senão usa o ALT da imagem (no carrossel).
+        let captionText = '';
+        const timelineItem = img.closest('.timeline-item');
+        if (timelineItem) {
+          const containerDiv = img.closest('.image-container');
+          if (containerDiv && containerDiv.nextElementSibling && containerDiv.nextElementSibling.matches('.caption')) {
+            captionText = containerDiv.nextElementSibling.textContent.trim();
+            containerDiv.nextElementSibling.style.display = 'none'; // oculta a legenda original para não duplicar
+          }
+        }
+        if (!captionText) captionText = img.getAttribute('alt') || '';
+
+        if (captionText) {
+          const small = document.createElement('small');
+          small.textContent = captionText;
+          frame.appendChild(small);
+        }
+      });
+    })();
+
+    (function(){
+      const root   = document.getElementById('bouquet');
+      const button = document.getElementById('bouquet-toggle');
+
+      // 1) preparar “desenho” dos caules
+      root.querySelectorAll('[data-len]').forEach(path => {
+        const len = path.getTotalLength();
+        path.style.setProperty('--len', len);
+      });
+
+      // 2) construir as flores dinamicamente (pétalas + miolo)
+      const PETALS = 7;                 // quantidade
+      const PETAL_RX = 10, PETAL_RY = 18;
+      const PETAL_RAD = 12;             // distância do centro
+      const CORE_R = 6;
+
+      root.querySelectorAll('.flower').forEach((g) => {
+        const cx = parseFloat(g.getAttribute('data-cx'));
+        const cy = parseFloat(g.getAttribute('data-cy'));
+        const color = g.getAttribute('data-color') || '#ff7aa2';
+
+        // pétalas em círculo
+        for(let i=0; i<PETALS; i++){
+          const ang = (360/PETALS) * i;
+          const rad = ang * Math.PI/180;
+          const px = cx + Math.cos(rad) * PETAL_RAD;
+          const py = cy + Math.sin(rad) * PETAL_RAD;
+
+          const petal = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+          petal.setAttribute('class','petal');
+          petal.setAttribute('cx', px);
+          petal.setAttribute('cy', py);
+          petal.setAttribute('rx', PETAL_RX);
+          petal.setAttribute('ry', PETAL_RY);
+          petal.setAttribute('fill', color);
+          petal.style.setProperty('--cx', px);
+          petal.style.setProperty('--cy', py);
+          petal.style.setProperty('--rot', ang + 'deg');
+          petal.style.setProperty('--i', i);
+          g.appendChild(petal);
+        }
+
+        // miolo
+        const core = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        core.setAttribute('class','core');
+        core.setAttribute('cx', cx);
+        core.setAttribute('cy', cy);
+        core.setAttribute('r', CORE_R);
+        g.appendChild(core);
+      });
+
+      // 3) florzinhas/✨ flutuantes durante o desabrochar
+      const FLOAT_EMOJIS = ["🌸","✨","💮","💠","💖","🌼"];
+      let floatTimer = null;
+
+      function spawnFloaters(durationMs = 2200, everyMs = 80){
+        const start = performance.now();
+        const rect = root.getBoundingClientRect();
+
+        function spawn(){
+          const now = performance.now();
+          if(now - start > durationMs){ clearInterval(floatTimer); floatTimer = null; return; }
+
+          const el = document.createElement('span');
+          el.className = 'floater';
+          el.textContent = FLOAT_EMOJIS[(Math.random()*FLOAT_EMOJIS.length)|0];
+
+          // posição inicial aleatória dentro do container
+          const leftPct = 20 + Math.random()*60; // 20% a 80%
+          const bottomPct = 10 + Math.random()*30;
+
+          el.style.left   = leftPct + '%';
+          el.style.bottom = bottomPct + '%';
+
+          // pequenas variações
+          el.style.fontSize = (16 + Math.random()*12) + 'px';
+          el.style.setProperty('--dur', (1.9 + Math.random()*0.9) + 's');
+          el.style.setProperty('--delay', (Math.random()*0.1) + 's');
+          el.style.setProperty('--x0', (Math.random()*20 - 10) + 'px');
+          el.style.setProperty('--x1', (Math.random()*60 - 30) + 'px');
+          el.style.setProperty('--r0', (Math.random()*-10) + 'deg');
+          el.style.setProperty('--r1', (10 + Math.random()*20) + 'deg');
+
+          root.appendChild(el);
+          setTimeout(()=> el.remove(), 3000);
+        }
+
+        // primeira leva + intervalo
+        spawn();
+        floatTimer = setInterval(spawn, everyMs);
+      }
+
+      // 4) abrir/fechar
+      function open(){
+        root.classList.add('active');
+        button.textContent = 'Fechar buquê ✨';
+
+        // flutuantes enquanto desabrocha
+        spawnFloaters(2400, 90);
+
+        // confete ao final
+        setTimeout(()=>{
+          if(window.confetti){
+            confetti({ particleCount: 70, spread: 60, origin:{x:.5, y:.7} });
+          }
+        }, 1900);
+      }
+      function close(){
+        root.classList.remove('active');
+        void root.offsetWidth; // reflow para resetar transições
+        button.textContent = 'Abrir buquê 💐';
+      }
+
+      root.addEventListener('click', () => {
+        if(root.classList.contains('active')) close(); else open();
+      });
+      button.addEventListener('click', () => {
+        if(root.classList.contains('active')) close(); else open();
+      });
+    })();
   </script>
 </body>
 </html>
