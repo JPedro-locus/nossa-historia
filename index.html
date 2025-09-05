@@ -380,6 +380,30 @@
       100% { transform: translate(var(--x1,40px), calc(var(--y0,0) - 160px)) scale(1.25) rotate(var(--r1,15deg)); opacity:0; }
     }
 
+    /* ======== ACCORDION (details/summary) ======== */
+    .accordion {
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 12px;
+      background: rgba(0,0,0,.18);
+      margin: 18px 0;
+      overflow: hidden;
+    }
+    .accordion summary {
+      list-style: none;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.1em;
+      background: rgba(0,0,0,.22);
+      user-select: none;
+    }
+    .accordion summary::-webkit-details-marker { display: none; }
+    .accordion .accordion-content { padding: 16px; }
+    .accordion .chev { transition: transform .2s ease; }
+    .accordion[open] .chev { transform: rotate(90deg); }
+
   </style>
 </head>
 
@@ -388,173 +412,195 @@
   <audio id="bg-music" src="./music/hungriahiphop-preta-feat-joao-carlos-martins-77a8c819.mp3" loop></audio>
   <button id="play-btn">▶️ Tocar Música</button>
 
+  <h1 class="love">Às vezes quando você menos espera vem a vida e te surpreende</h1>
+
+  <!-- seção do contador -->
   <div class="wrapper">
-
-    <h1 class="love">Às vezes quando você menos espera vem a vida e te surpreende</h1>
-
-    <!-- seção do contador -->
     <div class="hero">
       <div class="heart">💙</div>
       <h1 id="counter">Carregando...</h1>
       <p id="message">Carregando...</p>
     </div>
+  </div>
 
-    <!-- trilha de fotos -->
-    <div class="timeline">
-      <div class="timeline-item">
-        <h1 class="caption">Mas obviamente tivemos que ter um começo e aqui temos a trilha desse começo</h1>
-      </div>
-      <!-- 1º encontro -->
-      <div class="timeline-item">
-        <div class="image-container">
-          <img src="./images/e19b8a8bf6703b0869eb70a82231cfcf.jpg" alt="Nosso primeiro encontro"/>
-        </div>
-        <p class="caption">Nós em nosso primeiro encontro</p>
-      </div>
-      <!-- legenda entre 1ª e 2ª foto -->
-      <div class="timeline-item">
-        <p class="caption">“Por um momento eu quis te estrangular de tantas desculpas, mas aí veio…”</p>
-      </div>
-      <!-- momentos marcantes -->
-      <div class="timeline-item">
-        <div class="image-container">
-          <img src="./images/IMG-20250625-WA0005.jpg" alt="Momentos marcantes"/>
-        </div>
-        <p class="caption">Nossos momentos marcantes</p>
-      </div>
-      <!-- rotina -->
-      <div class="timeline-item">
-        <p class="caption">“Do nada comecei a fazer parte da tua rotina”</p>
-      </div>
-      <!-- primeiro mês -->
-      <div class="timeline-item">
-        <div class="image-container">
-          <img src="./images/20250705_220219(1).jpg" alt="Nosso primeiro mês"/>
-        </div>
-        <p class="caption">Chegou o nosso primeiro mês</p>
-      </div>
-      <!-- vídeo de covers -->
-      <div class="timeline-item">
-        <div class="image-container">
-          <video controls>
-            <source src="./video/20250706_180941_1_1_1 (1).mp4" type="video/mp4">
-            Seu navegador não suporta vídeo.
-          </video>
-        </div>
-        <p class="caption">Nossos covers juntos 😂🎤</p>
-      </div>
-      <!-- praia -->
-      <div class="timeline-item">
-        <div class="image-container">
-          <img src="./images/20250716_161809.jpg" alt="Passeio à praia"/>
-        </div>
-        <p class="caption">Finalmente te levei à praia 🏖️</p>
-      </div>
-    </div>
+  <div class="wrapper">
 
-    <!-- carrossel final -->
-    <div class="carousel">
-      <h2> E continuamos escrevendo nossa história…</h2>
-      <div class="carousel-track">
-        <div class="slide"><img src="./images/20250623_200023.jpg" alt="Foto 5"/></div>
-        <div class="slide"><img src="./images/20250624_183546(1).jpg" alt="Foto 6"/></div>
-        <div class="slide"><img src="./images/20250629_202254.jpg" alt="Foto 7"/></div>
-        <div class="slide"><img src="./images/20250704_195513.jpg" alt="Foto 8"/></div>
-        <div class="slide"><img src="./images/20250705_191530.jpg" alt="Foto 9"/></div>
-        <div class="slide"><img src="./images/20250705_220549.jpg" alt="Foto 10"/></div>
-        <div class="slide"><img src="./images/20250716_164040.jpg" alt="Foto 11"/></div>
-        <div class="slide"><img src="./images/20250719_162935.jpg" alt="Foto 12"/></div>
-        <div class="slide"><img src="./images/20250719_163630.jpg" alt="Foto 13"/></div>
-        <div class="slide"><img src="./images/IMG_20250725_204801_957.webp" alt="Foto 14"/></div>
-      </div>
-    </div>
-
-    <h2>E ainda temos muitos capítulos para adicionar nessa trilha</h2>
-    <h3>Histórias para contar, rir e sonhar</h3>
-    <h3>e acima de tudo muito tempo para poder te amar e fazer feliz</h3>
-    <h2 class="love">Te amo mil milhões meu amor 💙</h2>
-
-    <!-- ======== BLOCO 3 MESES ======== -->
-    <section class="tm-section" id="tm-three-months">
-      <div class="tm-type" id="tm-typewriter"></div>
-
-      <p class="tm-question">Promete mais 3, 6, 12 meses (e uma vida inteira) comigo? 🥹💙</p>
-
-      <div class="tm-actions" id="tm-actions">
-        <button class="tm-btn tm-btn-yes" id="tm-yes">Sim 💙</button>
-        <button class="tm-btn tm-btn-no" id="tm-no">Não 😜</button>
-      </div>
-
-      <!-- Envelope + carta -->
-      <div class="tm-envelope-wrap" id="tm-envelope-wrap">
-        <div class="tm-envelope" id="tm-envelope">
-          <button class="tm-close" id="tm-close" aria-label="Fechar carta">✖ Fechar</button>
-          <div class="tm-env-back"></div>
-          <div class="tm-env-flap"></div>
-          <div class="tm-letter">
-            <div class="tm-letter-content">
-              <div class="tm-letter-title">Carta para o nosso 3º mês ✨</div>
-              <div id="tm-letter-text" class="tm-letter-typed"></div>
+    <!-- ====== SEÇÃO 2 MESES (COLAPSÁVEL) ====== -->
+    <details class="accordion" id="acc-two-months" open>
+      <summary>
+        <span>✨ 2 meses</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="accordion-content">
+        <!-- trilha de fotos -->
+        <div class="timeline">
+          <div class="timeline-item">
+            <h1 class="caption">Mas obviamente tivemos que ter um começo e aqui temos a trilha desse começo</h1>
+          </div>
+          <!-- 1º encontro -->
+          <div class="timeline-item">
+            <div class="image-container">
+              <img src="./images/e19b8a8bf6703b0869eb70a82231cfcf.jpg" alt="Nosso primeiro encontro"/>
             </div>
+            <p class="caption">Nós em nosso primeiro encontro</p>
+          </div>
+          <!-- legenda entre 1ª e 2ª foto -->
+          <div class="timeline-item">
+            <p class="caption">“Por um momento eu quis te estrangular de tantas desculpas, mas aí veio…”</p>
+          </div>
+          <!-- momentos marcantes -->
+          <div class="timeline-item">
+            <div class="image-container">
+              <img src="./images/IMG-20250625-WA0005.jpg" alt="Momentos marcantes"/>
+            </div>
+            <p class="caption">Nossos momentos marcantes</p>
+          </div>
+          <!-- rotina -->
+          <div class="timeline-item">
+            <p class="caption">“Do nada comecei a fazer parte da tua rotina”</p>
+          </div>
+          <!-- primeiro mês -->
+          <div class="timeline-item">
+            <div class="image-container">
+              <img src="./images/20250705_220219(1).jpg" alt="Nosso primeiro mês"/>
+            </div>
+            <p class="caption">Chegou o nosso primeiro mês</p>
+          </div>
+          <!-- vídeo de covers -->
+          <div class="timeline-item">
+            <div class="image-container">
+              <video controls>
+                <source src="./video/20250706_180941_1_1_1 (1).mp4" type="video/mp4">
+                Seu navegador não suporta vídeo.
+              </video>
+            </div>
+            <p class="caption">Nossos covers juntos 😂🎤</p>
+          </div>
+          <!-- praia -->
+          <div class="timeline-item">
+            <div class="image-container">
+              <img src="./images/20250716_161809.jpg" alt="Passeio à praia"/>
+            </div>
+            <p class="caption">Finalmente te levei à praia 🏖️</p>
           </div>
         </div>
+
+        <!-- carrossel final -->
+        <div class="carousel">
+          <h2> E continuamos escrevendo nossa história…</h2>
+          <div class="carousel-track">
+            <div class="slide"><img src="./images/20250623_200023.jpg" alt="23/06/25"/></div>
+            <div class="slide"><img src="./images/20250624_183546(1).jpg" alt="24/06/25"/></div>
+            <div class="slide"><img src="./images/20250629_202254.jpg" alt="29/06/25"/></div>
+            <div class="slide"><img src="./images/20250704_195513.jpg" alt="04/07/25"/></div>
+            <div class="slide"><img src="./images/20250705_191530.jpg" alt="05/07/25"/></div>
+            <div class="slide"><img src="./images/20250705_220549.jpg" alt="05/07/25"/></div>
+            <div class="slide"><img src="./images/20250716_164040.jpg" alt="16/07/25"/></div>
+            <div class="slide"><img src="./images/20250719_162935.jpg" alt="19/07/25"/></div>
+            <div class="slide"><img src="./images/20250719_163630.jpg" alt="19/07/25"/></div>
+            <div class="slide"><img src="./images/IMG_20250725_204801_957.webp" alt="25/07/25"/></div>
+          </div>
+        </div>
+
+        <h2>E ainda temos muitos capítulos para adicionar nessa trilha</h2>
+        <h3>Histórias para contar, rir e sonhar</h3>
+        <h3>e acima de tudo muito tempo para poder te amar e fazer feliz</h3>
+        <h2 class="love">Te amo mil milhões meu amor 💙</h2>
+
       </div>
-    </section>
+    </details>
 
-    <section class="tm-section" id="reasons">
-      <h1>10 razões pelas quais te amo</h1>
-      <ul class="reasons-list" id="reasons-list"></ul>
-      <button class="tm-btn" id="reasons-next">Mostrar próxima 💌</button>
-    </section>
+    <!-- ====== SEÇÃO 3 MESES (COLAPSÁVEL) ====== -->
+    <details class="accordion" id="acc-three-months">
+      <summary>
+        <span>💙 3 meses</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="accordion-content">
 
-    <section class="bouquet-wrap">
-      <h2 class="bouquet-title">Um buquê só seu 💐 (toque para abrir)</h2>
-      <h3 class="tm-question">Tive a ideia de um buquê por que foi um dos primeiros presentes que te dei e e não consigo me esquecer da tua felicidade e do que você falou quando recebeu, que aquilo era um dos seus sonhos, poder receber flores e sinceramente ali foi um dos momentos que me deixaram mais feliz e por isso que o buque sempre tem tanto significado, por isso que eu quis fazer algo especial para você. o motivo do buque eterni de lego também e agora um que nunca vai poder ser apagado</h3>
+        <!-- ======== BLOCO 3 MESES ======== -->
+        <section class="tm-section" id="tm-three-months">
+          <div class="tm-type" id="tm-typewriter"></div>
 
-      <div id="bouquet" class="bouquet" aria-label="Buquê animado" title="Clique/Toque para abrir">
-        <svg viewBox="0 0 400 420" role="img" aria-labelledby="bouquetTitle">
-          <title id="bouquetTitle">Buquê de flores animado</title>
+          <p class="tm-question">Promete mais 3, 6, 12 meses (e uma vida inteira) comigo? 🥹💙</p>
 
-          <!-- cone de papel -->
-          <path class="cone" d="M200,380 L120,300 Q200,260 280,300 Z"/>
-          <!-- fita -->
-          <path class="ribbon" d="M190 310 q10 10 20 0 q9 -8 22 -4 q-11 16 -42 16 q-24 0 -36 -8 q15 -6 36 -4z"/>
+          <div class="tm-actions" id="tm-actions">
+            <button class="tm-btn tm-btn-yes" id="tm-yes">Sim 💙</button>
+            <button class="tm-btn tm-btn-no" id="tm-no">Não 😜</button>
+          </div>
 
-          <!-- caules (curvos) -->
-          <g class="stems">
-            <path class="stem" data-len d="M200 318 Q160 250 140 182" style="--delay:.05s"/>
-            <path class="stem" data-len d="M200 318 Q176 238 180 158" style="--delay:.10s"/>
-            <path class="stem" data-len d="M200 318 Q200 230 200 140" style="--delay:.15s"/>
-            <path class="stem" data-len d="M200 318 Q220 236 220 150" style="--delay:.20s"/>
-            <path class="stem" data-len d="M200 318 Q240 250 260 180" style="--delay:.25s"/>
-            <path class="stem" data-len d="M200 318 Q150 246 120 210" style="--delay:.30s"/>
-            <path class="stem" data-len d="M200 318 Q250 246 280 210" style="--delay:.35s"/>
-          </g>
+          <!-- Envelope + carta -->
+          <div class="tm-envelope-wrap" id="tm-envelope-wrap">
+            <div class="tm-envelope" id="tm-envelope">
+              <button class="tm-close" id="tm-close" aria-label="Fechar carta">✖ Fechar</button>
+              <div class="tm-env-back"></div>
+              <div class="tm-env-flap"></div>
+              <div class="tm-letter">
+                <div class="tm-letter-content">
+                  <div class="tm-letter-title">Carta para o nosso 3º mês ✨</div>
+                  <div id="tm-letter-text" class="tm-letter-typed"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-          <!-- folhas -->
-          <ellipse class="leaf" cx="168" cy="230" rx="10" ry="5" transform="rotate(-30 168 230)" style="--delay:.55s"/>
-          <ellipse class="leaf" cx="232" cy="230" rx="10" ry="5" transform="rotate(30 232 230)"  style="--delay:.60s"/>
-          <ellipse class="leaf" cx="150" cy="205" rx="9"  ry="5" transform="rotate(-24 150 205)" style="--delay:.62s"/>
-          <ellipse class="leaf" cx="250" cy="205" rx="9"  ry="5" transform="rotate(24 250 205)"  style="--delay:.64s"/>
-          <path class="leaf" d="M196 318 q6 -10 12 0 q-6 10 -12 0z" style="--delay:.66s"/>
+        <section class="tm-section" id="reasons">
+          <h1>10 razões pelas quais te amo</h1>
+          <ul class="reasons-list" id="reasons-list"></ul>
+          <button class="tm-btn" id="reasons-next">Mostrar próxima 💌</button>
+        </section>
 
-          <!-- cabeça do buquê (balanço) -->
-          <g class="head">
-            <!-- marcadores de flores: o JS gera pétalas e miolo -->
-            <g class="flower" data-cx="140" data-cy="180" data-color="#ff7aa2" style="--delay:.85s"></g>
-            <g class="flower" data-cx="180" data-cy="160" data-color="#f7b267" style="--delay:.95s"></g>
-            <g class="flower" data-cx="200" data-cy="140" data-color="#b892ff" style="--delay:1.05s"></g>
-            <g class="flower" data-cx="220" data-cy="150" data-color="#63d2ff" style="--delay:1.15s"></g>
-            <g class="flower" data-cx="260" data-cy="180" data-color="#ffa3a3" style="--delay:1.25s"></g>
-            <g class="flower" data-cx="120" data-cy="210" data-color="#ffd166" style="--delay:1.35s"></g>
-            <g class="flower" data-cx="280" data-cy="210" data-color="#9ae66e" style="--delay:1.45s"></g>
-          </g>
-        </svg>
+        <section class="bouquet-wrap">
+          <h2 class="bouquet-title">Um buquê só seu 💐 (toque para abrir)</h2>
+          <h3 class="tm-question">Tive a ideia de um buquê por que foi um dos primeiros presentes que te dei e e não consigo me esquecer da tua felicidade e do que você falou quando recebeu, que aquilo era um dos seus sonhos, poder receber flores e sinceramente ali foi um dos momentos que me deixaram mais feliz e por isso que o buque sempre tem tanto significado, por isso que eu quis fazer algo especial para você. o motivo do buque eterni de lego também e agora um que nunca vai poder ser apagado</h3>
+
+          <div id="bouquet" class="bouquet" aria-label="Buquê animado" title="Clique/Toque para abrir">
+            <svg viewBox="0 0 400 420" role="img" aria-labelledby="bouquetTitle">
+              <title id="bouquetTitle">Buquê de flores animado</title>
+
+              <!-- cone de papel -->
+              <path class="cone" d="M200,380 L120,300 Q200,260 280,300 Z"/>
+              <!-- fita -->
+              <path class="ribbon" d="M190 310 q10 10 20 0 q9 -8 22 -4 q-11 16 -42 16 q-24 0 -36 -8 q15 -6 36 -4z"/>
+
+              <!-- caules (curvos) -->
+              <g class="stems">
+                <path class="stem" data-len d="M200 318 Q160 250 140 182" style="--delay:.05s"/>
+                <path class="stem" data-len d="M200 318 Q176 238 180 158" style="--delay:.10s"/>
+                <path class="stem" data-len d="M200 318 Q200 230 200 140" style="--delay:.15s"/>
+                <path class="stem" data-len d="M200 318 Q220 236 220 150" style="--delay:.20s"/>
+                <path class="stem" data-len d="M200 318 Q240 250 260 180" style="--delay:.25s"/>
+                <path class="stem" data-len d="M200 318 Q150 246 120 210" style="--delay:.30s"/>
+                <path class="stem" data-len d="M200 318 Q250 246 280 210" style="--delay:.35s"/>
+              </g>
+
+              <!-- folhas -->
+              <ellipse class="leaf" cx="168" cy="230" rx="10" ry="5" transform="rotate(-30 168 230)" style="--delay:.55s"/>
+              <ellipse class="leaf" cx="232" cy="230" rx="10" ry="5" transform="rotate(30 232 230)"  style="--delay:.60s"/>
+              <ellipse class="leaf" cx="150" cy="205" rx="9"  ry="5" transform="rotate(-24 150 205)" style="--delay:.62s"/>
+              <ellipse class="leaf" cx="250" cy="205" rx="9"  ry="5" transform="rotate(24 250 205)"  style="--delay:.64s"/>
+              <path class="leaf" d="M196 318 q6 -10 12 0 q-6 10 -12 0z" style="--delay:.66s"/>
+
+              <!-- cabeça do buquê (balanço) -->
+              <g class="head">
+                <!-- marcadores de flores: o JS gera pétalas e miolo -->
+                <g class="flower" data-cx="140" data-cy="180" data-color="#ff7aa2" style="--delay:.85s"></g>
+                <g class="flower" data-cx="180" data-cy="160" data-color="#f7b267" style="--delay:.95s"></g>
+                <g class="flower" data-cx="200" data-cy="140" data-color="#b892ff" style="--delay:1.05s"></g>
+                <g class="flower" data-cx="220" data-cy="150" data-color="#63d2ff" style="--delay:1.15s"></g>
+                <g class="flower" data-cx="260" data-cy="180" data-color="#ffa3a3" style="--delay:1.25s"></g>
+                <g class="flower" data-cx="120" data-cy="210" data-color="#ffd166" style="--delay:1.35s"></g>
+                <g class="flower" data-cx="280" data-cy="210" data-color="#9ae66e" style="--delay:1.45s"></g>
+              </g>
+            </svg>
+          </div>
+
+          <button class="tm-btn" id="bouquet-toggle">Abrir buquê 💐</button>
+        </section>
+
       </div>
-
-      <button class="tm-btn" id="bouquet-toggle">Abrir buquê 💐</button>
-    </section>
-
+    </details>
 
   </div>
 
@@ -686,11 +732,16 @@
       const message = 
     `Meu amor,
 
-    Obrigado por cada dia desde o nosso primeiro “oi”.
-    Nestes 3 meses, você virou casa, porto seguro e o meu lugar favorito.
-    Prometo cuidar de você, te fazer sorrir nos dias fáceis e te abraçar nos difíceis.
+    hoje completamos três meses juntos, e às vezes me pego pensando que o tempo, quando se trata de nós dois, parece se curvar, como a luz ao redor de uma estrela. Três meses parecem pouco diante da eternidade, mas o que construímos nesse tempo tem o peso e a grandeza de um universo inteiro.
 
-    Te amo mil milhões. 💙`;
+    Você é como uma galáxia rara que encontrei em meio ao infinito — algo tão imenso e ao mesmo tempo tão delicado. Se o universo guarda mistérios que os cientistas ainda tentam decifrar, eu guardo em mim o mistério do quanto você me transforma todos os dias. Seu sorriso é como o nascer de uma estrela: ilumina, aquece, dá sentido. Seu abraço é meu planeta seguro, meu lugar de gravidade, onde tudo em mim encontra equilíbrio.
+
+    Três meses podem ser só um instante na imensidão do cosmos, mas, para mim, cada segundo ao seu lado vale mais que bilhões de anos-luz. Porque ao seu lado eu entendi que amor não se mede em tempo, mas em intensidade — e o nosso é do tamanho do universo inteiro.
+
+    Te amo mil milhões. 💙
+    
+    Não tenho palavras para descrever o quão sou feliz contigo e como quero viver a vida ao teu lado, te fazer feliz e te amar para sempre.
+    `;
 
       function fireConfetti() {
         const duration = 2000;
@@ -754,13 +805,13 @@
     (function reasonsList(){
       const REASONS = [
         "Você me faz rir até quando eu não quero.",
-        "Seu abraço é meu lugar favorito.",
-        "A forma como você cuida de mim.",
-        "Seu jeitinho quando está concentrada(o).",
+        "Seu abraço é meu lugar de paz.",
+        "A forma como você cuida de mim, mesmo as vezes zerando minha paciência kkkkkk.",
+        "Seu jeitinho.",
         "Nossos covers sem vergonha 😂🎤",
         "Como tudo fica mais leve com você.",
-        "Sua coragem e seus sonhos.",
-        "Seu olhar quando fala do que ama.",
+        "Teu sorriso.",
+        "Seu companheirismo, topando qualquer loucura juntos.",
         "Nossos planos bobos e os gigantes.",
         "Porque com você, tudo faz sentido."
       ];
@@ -886,7 +937,6 @@
 
       function spawnFloaters(durationMs = 2200, everyMs = 80){
         const start = performance.now();
-        const rect = root.getBoundingClientRect();
 
         function spawn(){
           const now = performance.now();
@@ -946,7 +996,7 @@
         if(root.classList.contains('active')) close(); else open();
       });
       button.addEventListener('click', () => {
-        if(root.classList.contains('active')) close(); else open();
+        ifroot.classList.contains('active') ? close() : open();
       });
     })();
   </script>
