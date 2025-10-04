@@ -403,7 +403,244 @@
     .accordion .accordion-content { padding: 16px; }
     .accordion .chev { transition: transform .2s ease; }
     .accordion[open] .chev { transform: rotate(90deg); }
+    /* ======== 4 MESES – QUEBRA-CABEÇA 3×3 ======== */
+    .puzzle-wrap{
+      margin: 28px auto 14px;
+      max-width: 720px;
+      position: relative;
+    }
 
+    .puzzle-board{
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+      background: rgba(0,0,0,.15);
+      border: 1px solid rgba(255,255,255,.35);
+    }
+
+    .puzzle-secret{
+      padding: 22px 20px;
+      text-align: center;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      line-height: 1.55;
+      backdrop-filter: blur(0px);
+      transition: filter .35s ease, opacity .35s ease;
+      filter: blur(10px) saturate(0.8);
+      opacity: .85;
+    }
+
+    .puzzle-revealed .puzzle-secret{
+      filter: blur(0);
+      opacity: 1;
+    }
+
+    .puzzle-grid{
+      position: absolute; inset: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
+    }
+
+    .puzzle-tile{
+      position: relative;
+      border: 1px dashed rgba(255,255,255,.35);
+      background: rgba(0,0,0,.28);
+      cursor: pointer;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: rgba(255,255,255,.9);
+      user-select: none;
+    }
+    .puzzle-tile:hover{ transform: translateY(-1px); background: rgba(0,0,0,.34); }
+    .puzzle-tile.solved{
+      background: rgba(0, 180, 80, .22);
+      border-color: rgba(0, 220, 120, .7);
+      cursor: default;
+    }
+    .puzzle-tile.solved::after{
+      content: "✅";
+      position: absolute; right: 8px; bottom: 6px; font-size: 18px;
+    }
+
+    /* progresso */
+    .puzzle-progress{
+      margin-top: 10px; text-align: center; font-size: .98em; opacity: .9;
+    }
+
+    /* Modal Q&A (leve, sem <dialog>) */
+    .qa-backdrop{
+      position: fixed; inset: 0; background: rgba(0,0,0,.5);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000; padding: 16px;
+    }
+    .qa-backdrop.show{ display: flex; }
+    .qa-modal{
+      width: min(92vw, 520px);
+      background: #ffffff;
+      color: #222;
+      border-radius: 12px;
+      box-shadow: 0 14px 32px rgba(0,0,0,.35);
+      overflow: hidden;
+    }
+    .qa-header{
+      padding: 14px 16px; background: #e9f2ff; color: #0d47a1; font-weight: 800;
+      display: flex; align-items:center; justify-content: space-between;
+    }
+    .qa-body{ padding: 16px; }
+    .qa-body p{ margin-bottom: 10px; }
+    .qa-actions{
+      display: flex; gap: 10px; justify-content: flex-end;
+      padding: 12px 16px; background: #f7f7f7;
+      border-top: 1px solid #eee;
+    }
+    .qa-input{
+      width: 100%; padding: 10px 12px; border: 1px solid #d6d6d6; border-radius: 8px;
+      font-size: 1rem; outline: none;
+    }
+    .qa-input:focus{ border-color: #0072ff; box-shadow: 0 0 0 3px rgba(0,114,255,.12); }
+    .qa-btn{
+      padding: 10px 14px; border: 0; border-radius: 10px; font-weight: 700; cursor: pointer;
+    }
+    .qa-btn.primary{ background: #0072ff; color: #fff; }
+    .qa-btn.ghost{ background: transparent; color: #333; }
+    .qa-error{ color: #c62828; font-size: .92em; margin-top: 8px; min-height: 1.2em; }
+    .qa-options{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:8px; }
+    .qa-option{
+      padding:10px 12px; border-radius:10px; border:1px solid #d6d6d6; background:#fff;
+      cursor:pointer; font-weight:700; text-align:left;
+    }
+    .qa-option:hover{ border-color:#0072ff; box-shadow:0 0 0 3px rgba(0,114,255,.12); }
+    .qa-option.correct{ border-color:#1b8e3e; background:#e9f7ef; }
+    .qa-option.wrong{ border-color:#c62828; background:#fdecec; }
+
+    .puzzle-grid{ transition: opacity .35s ease, transform .35s ease; }
+    .puzzle-cleared .puzzle-grid{
+      opacity: 0;
+      transform: scale(0.98);
+      pointer-events: none;
+    }
+    .puzzle-cleared .puzzle-secret{
+      filter: blur(0);
+      opacity: 1;
+    }
+
+    .pair-wrap.ring-bear{
+      width:min(680px,94vw); margin:16px auto 10px; aspect-ratio:3/1.3;
+      border-radius:14px; overflow:hidden; background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.35); box-shadow:0 12px 28px rgba(0,0,0,.28);
+    }
+    .pair-wrap.ring-bear .thing{
+      transition: transform .85s cubic-bezier(.2,1,.2,1);
+      transform-box: fill-box;
+    }
+    /* posição separados */
+    .pair-wrap.ring-bear .ring.left  { transform: translateX(-16%) rotate(-6deg); }
+    .pair-wrap.ring-bear .bear.right { transform: translateX( 16%) rotate( 4deg); }
+    /* juntinhos */
+    .pair-wrap.ring-bear.merged .ring.left  { transform: translateX(-4%) rotate(-18deg); }
+    .pair-wrap.ring-bear.merged .bear.right { transform: translateX( 2%) rotate( 2deg); }
+
+    /* braço do urso “abraça” a aliança quando junta */
+    .bear .arm{ transform-box: fill-box; transform-origin: center; transition: transform .6s ease; }
+    .bear .arm-left{ transform-origin: 540px 232px; }  /* pivô do braço esquerdo */
+    .pair-wrap.ring-bear.merged .bear .arm-left{
+      transform: translate(-14px,-10px) rotate(-22deg);
+    }
+
+    /* brilho ao juntar */
+    .pair-wrap.ring-bear .spark{
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(.6);
+      font-size:28px; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .35s ease;
+    }
+    .pair-wrap.ring-bear.merged .spark{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+
+    /* texto: oculto -> aparece ao juntar */
+    .pair-after.ring-bear-text{
+      margin-top:10px; opacity:0; max-height:0; overflow:hidden;
+      transition:opacity .35s ease, max-height .35s ease;
+    }
+    .pair-wrap.ring-bear.merged ~ .pair-after.ring-bear-text{ opacity:1; max-height:400px; }
+
+    #rb-puzzle .pair-wrap{ width:min(680px,94vw); margin:16px auto 10px; aspect-ratio:3/1.3;
+      border-radius:14px; overflow:hidden; background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.35); box-shadow:0 12px 28px rgba(0,0,0,.28); }
+    #rb-puzzle svg{ width:100%; height:100%; display:block; }
+    #rb-puzzle .piece{ transform-box:fill-box; transition:transform .85s cubic-bezier(.2,1,.2,1); }
+    #rb-puzzle .left{  transform: translateX(-5.5%) rotate(-4deg); }
+    #rb-puzzle .right{ transform: translateX( 5.5%) rotate( 3deg); }
+
+    #rb-puzzle .pair-wrap.joined .left{  transform: translateX(0%) rotate(0deg); }
+    #rb-puzzle .pair-wrap.joined .right{ transform: translateX(0%) rotate(0deg); }
+    #rb-puzzle .pair-wrap.joined .piece{ transition-timing-function:cubic-bezier(.2,1.2,.2,1);
+      transform-origin: 400px 180px; }
+
+    /* brilho ao encaixar */
+    #rb-puzzle .spark{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) scale(.6);
+      font-size:28px; opacity:0; pointer-events:none; transition:opacity .25s ease, transform .35s ease; }
+    #rb-puzzle .pair-wrap.joined .spark{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+
+    /* texto que você vai escrever (mostra só depois de juntar) */
+    #rbText{ margin-top:10px; opacity:0; max-height:0; overflow:hidden; transition:opacity .35s, max-height .35s; }
+    #rb-puzzle .pair-wrap.joined ~ #rbText{ opacity:1; max-height:400px; }
+    .future-section{ margin:60px 0; text-align:center; }
+    .fe-wrap{
+      margin: 22px auto 0; width: clamp(360px, 72vw, 680px); max-width: 96%;
+      perspective: 1000px;
+    }
+    .fe-envelope{
+      position: relative; margin:0 auto; width:100%;
+      height: 220px; transition: height .6s ease;
+    }
+    .fe-back{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg,#fefefe 0%,#f3f3f3 100%);
+      border-radius:14px; box-shadow:0 14px 34px rgba(0,0,0,.25);
+    }
+    .fe-flap{
+      position:absolute; left:50%; top:0; height:44%; width:92%;
+      transform: translateX(-50%); transform-origin: top;
+      background: linear-gradient(180deg,#fafafa 0%,#eaeaea 70%);
+      border-top-left-radius:14px; border-top-right-radius:14px;
+      clip-path: polygon(0 0,100% 0,50% 100%);
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.14));
+      transition: transform .8s cubic-bezier(.23,1,.32,1);
+      z-index:2;
+    }
+    .fe-flap::after{
+      content:''; position:absolute; left:10%; right:10%; bottom:-1px; height:2px; border-radius:1px;
+      background: linear-gradient(90deg,transparent,rgba(0,0,0,.12),transparent);
+    }
+    .fe-letter{
+      position:absolute; left:50%; transform:translateX(-50%);
+      top:72px; width: calc(100% - 48px); bottom:14px;
+      background:#fff; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;
+      box-shadow:0 10px 24px rgba(0,0,0,.18);
+      height:0; transition:height .8s cubic-bezier(.23,1,.32,1) .2s;
+    }
+    .fe-letter-content{ padding:18px 20px; color:#333; text-align:left; line-height:1.6; overflow-y:auto; }
+    .fe-title{ font-weight:800; color:#0072ff; margin-bottom:6px; }
+    .fe-typed{ border-right:2px solid rgba(0,0,0,.5); white-space:pre-wrap; min-height:4.2em; }
+
+    /* aberto */
+    .fe-envelope.open{ height: clamp(420px, 64vh, 620px); }
+    .fe-envelope.open .fe-flap{ transform: translateX(-50%) rotateX(-180deg); }
+    .fe-envelope.open .fe-letter{ height: calc(100% - 96px); }
+
+    /* botão/nota */
+    #fe-open{ margin-top:12px; }
+    .fe-note{ margin-top:10px; opacity:.9; }
+
+    /* responsivo fino */
+    @media (max-width:480px){
+      .fe-letter{ top:70px; }
+    }
+    .fe-close{
+      position:absolute; right:10px; top:10px; z-index:3;
+      background: rgba(0,0,0,.08); border:0; border-radius:8px;
+      padding:6px 10px; font-weight:700; color:#333; cursor:pointer;
+    }
+    .fe-close:hover{ background: rgba(0,0,0,.14); }
   </style>
 </head>
 
@@ -426,7 +663,7 @@
   <div class="wrapper">
 
     <!-- ====== SEÇÃO 2 MESES (COLAPSÁVEL) ====== -->
-    <details class="accordion" id="acc-two-months" open>
+    <details class="accordion" id="acc-two-months">
       <summary>
         <span>✨ 2 meses</span>
         <span class="chev">▸</span>
@@ -598,11 +835,229 @@
 
           <button class="tm-btn" id="bouquet-toggle">Abrir buquê 💐</button>
         </section>
+    </div>
+    </details> 
+    <!-- ====== SEÇÃO 4 MESES (COLAPSÁVEL) ====== -->
+    <details class="accordion" id="acc-four-months">
+      <summary>
+        <span>🧸💍 4 meses</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="accordion-content">
+
+        <section class="tm-section" id="tm-four-months">
+          <div class="tm-type">Nosso 4º mês chegou com um joguinho! 💌</div>
+          <p class="tm-question">Responda as 9 perguntinhas. Acertando todas, o texto escondido se revela. 😍</p>
+
+          <div class="puzzle-wrap">
+            <!-- Tabuleiro: o texto fica por baixo, as peças por cima -->
+            <div id="puzzle-board" class="puzzle-board">
+              <div class="puzzle-secret" id="puzzle-secret">
+                <h3 class="tm-letter-title" style="margin-bottom:8px;">Uma mensagem especial pra você 💙</h3>
+                <p>
+                  Então amor chegamos aos 4 meses, e eu só tenho a agradecer por cada momento que passamos juntos, por cada sorriso que você me deu, por cada abraço que me confortou e por cada palavra de carinho que me fez sentir especial.
+                  Sabe as vezes reclamo do teu jeito que as vezes parece uma cavala ou muito fria em certas ocasiões, mas a verdade é que eu amo cada pedacinho de você, até mesmo os defeitos que você acha que tem, eu amo tudo em você e isso me faz muito valorizar os momentos que eu tenho cntg princialmente por que tu só é uma pedra de gelo no whats.
+                  Você é a pessoa que me faz sentir vivo, que me inspira a ser melhor e que me completa de uma forma que eu nunca imaginei ser possível.
+                  Eu amo o teu sorriso, o teu olhar, o teu jeito de ser, a tua voz, o teu cheiro, o teu toque, o teu abraço, o teu beijo.
+                  Amo tudo em você, e eu quero passar o resto da minha vida ao teu lado, construindo uma história juntos, cheia de amor, respeito, cumplicidade e felicidade.
+                  Obrigado por ser minha namorada, minha amiga, minha confidente e meu amor.
+                  Que nossos próximos meses tragam ainda mais risadas, planos, abraços demorados e a paz que só existe no teu abraço.
+                  Te amo mil milhões — hoje, amanhã e sempre. ✨
+                </p>
+              </div>
+
+              <div id="puzzle-grid" class="puzzle-grid">
+                <!-- 9 peças (marcadores), o JS liga cada uma a uma pergunta -->
+                <div class="puzzle-tile" data-idx="0">1</div>
+                <div class="puzzle-tile" data-idx="1">2</div>
+                <div class="puzzle-tile" data-idx="2">3</div>
+                <div class="puzzle-tile" data-idx="3">4</div>
+                <div class="puzzle-tile" data-idx="4">5</div>
+                <div class="puzzle-tile" data-idx="5">6</div>
+                <div class="puzzle-tile" data-idx="6">7</div>
+                <div class="puzzle-tile" data-idx="7">8</div>
+                <div class="puzzle-tile" data-idx="8">9</div>
+              </div>
+            </div>
+
+            <div class="puzzle-progress" id="puzzle-progress">Progresso: 0 / 9</div>
+            <button class="tm-btn" id="puzzle-reset" style="margin-top:8px;">Resetar quebra-cabeça ↺</button>
+          </div>
+        </section>
+        <section class="tm-section pair-section" id="rb-puzzle">
+          <div class="tm-type">Nosso mini-puzzle: a aliança e o ursinho 🧸💍</div>
+          <p class="tm-question pair-text">Duas peças diferentes… que fazem sentido quando se encontram. Vamos juntar?</p>
+
+          <div class="pair-wrap" id="rbWrap">
+            <div class="pair-stage">
+              <div class="spark" id="rbSpark">✨</div>
+
+              <!-- SVG: duas peças que se encaixam -->
+              <svg viewBox="0 0 800 360" aria-hidden="true">
+                <defs>
+                  <!-- fundos -->
+                  <linearGradient id="bgLeft" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#e6f1ff"/>
+                    <stop offset="100%" stop-color="#cfe2ff"/>
+                  </linearGradient>
+                  <linearGradient id="bgRight" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ffe1ea"/>
+                    <stop offset="100%" stop-color="#ffd1dd"/>
+                  </linearGradient>
+
+                  <!-- “meio” do encaixe -->
+                  <circle id="nub" cx="400" cy="180" r="34"/>
+
+                  <!-- máscara para cavidade da peça da direita (retângulo – círculo) -->
+                  <mask id="rightHole" maskUnits="userSpaceOnUse">
+                    <rect x="390" y="20" width="390" height="320" rx="18" ry="18" fill="white"/>
+                    <use href="#nub" fill="black"/>
+                  </mask>
+
+                  <!-- clip para deixar a aba da peça esquerda aparecer um pouco para a direita -->
+                  <clipPath id="leftClip">
+                    <rect x="20" y="20" width="420" height="320" rx="18" ry="18"/>
+                  </clipPath>
+
+                  <!-- ouro branco -->
+                  <linearGradient id="whiteGold" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#f4f6f8"/>
+                    <stop offset="60%" stop-color="#d8dde3"/>
+                    <stop offset="100%" stop-color="#c7ced6"/>
+                  </linearGradient>
+                  <linearGradient id="whiteGoldEdge" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="100%" stop-color="#bfc6cf"/>
+                  </linearGradient>
+
+                  <!-- safira -->
+                  <radialGradient id="sapphire" cx="50%" cy="45%" r="65%">
+                    <stop offset="0%" stop-color="#51c0ff"/>
+                    <stop offset="55%" stop-color="#1f6ad3"/>
+                    <stop offset="100%" stop-color="#0a3c8f"/>
+                  </radialGradient>
+
+                  <!-- plush do urso -->
+                  <linearGradient id="plush" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"  stop-color="#ffb8c6"/>
+                    <stop offset="100%" stop-color="#ff8aa2"/>
+                  </linearGradient>
+                </defs>
+
+                <!-- ===== PEÇA ESQUERDA (com “aba” que entra na direita) ===== -->
+                <g class="piece left" clip-path="url(#leftClip)">
+                  <!-- base -->
+                  <rect x="20" y="20" width="380" height="320" rx="18" ry="18" fill="url(#bgLeft)" stroke="rgba(0,0,0,.18)" stroke-width="2"/>
+                  <!-- a própria “aba” (união visual) -->
+                  <use href="#nub" fill="url(#bgLeft)" stroke="rgba(0,0,0,.18)" stroke-width="2"/>
+
+                  <!-- aliança (ouro branco com safira) -->
+                  <g transform="translate(300,194)">
+                    <circle r="76" fill="none" stroke="url(#whiteGold)" stroke-width="24"/>
+                    <circle r="76" fill="none" stroke="url(#whiteGoldEdge)" stroke-width="5" opacity=".6"/>
+                    <!-- chaton + gema -->
+                    <g transform="translate(0,-70)">
+                      <rect x="-16" y="-10" width="32" height="18" rx="4" ry="4" fill="url(#whiteGold)" stroke="#aeb6c2" stroke-width="1.6"/>
+                      <circle r="13" fill="url(#sapphire)" stroke="#0a3c8f" stroke-width="2"/>
+                      <path d="M-6 -6 q4 -4 10 -6" fill="none" stroke="#aee1ff" stroke-width="2" opacity=".9"/>
+                    </g>
+                  </g>
+                </g>
+
+                <!-- ===== PEÇA DIREITA (com cavidade) ===== -->
+                <g class="piece right">
+                  <rect x="390" y="20" width="390" height="320" rx="18" ry="18"
+                        fill="url(#bgRight)" stroke="rgba(0,0,0,.18)" stroke-width="2" mask="url(#rightHole)"/>
+
+                  <!-- ursinho – centrado na peça -->
+                  <g transform="translate(585,210)">
+                    <!-- CORPO (desenha primeiro) -->
+                    <ellipse cx="0" cy="18" rx="66" ry="78" fill="url(#plush)" stroke="#c86a78" stroke-width="4"/>
+                    <ellipse cx="0" cy="26" rx="34" ry="40" fill="#ffd9de" opacity=".9"/>
+
+                    <!-- BRAÇOS -->
+                    <ellipse cx="-50" cy="6" rx="20" ry="32" fill="url(#plush)" stroke="#c86a78" stroke-width="4"/>
+                    <ellipse cx=" 50" cy="6" rx="20" ry="32" fill="url(#plush)" stroke="#c86a78" stroke-width="4"/>
+
+                    <!-- PÉS -->
+                    <ellipse cx="-30" cy="74" rx="20" ry="14" fill="#ffd9de" stroke="#c86a78" stroke-width="3"/>
+                    <ellipse cx=" 30" cy="74" rx="20" ry="14" fill="#ffd9de" stroke="#c86a78" stroke-width="3"/>
+
+                    <!-- ORELHAS (atrás da cabeça, mas antes de desenhá-la) -->
+                    <circle cx="-30" cy="-90" r="22" fill="url(#plush)" stroke="#c86a78" stroke-width="4"/>
+                    <circle cx=" 30" cy="-90" r="22" fill="url(#plush)" stroke="#c86a78" stroke-width="4"/>
+
+                    <!-- CABEÇA (por cima de tudo) -->
+                    <circle cy="-50" r="52" fill="url(#plush)" stroke="#c86a78" stroke-width="4"/>
+                    <!-- ROSTO -->
+                    <circle cx="-18" cy="-52" r="4.5" fill="#2b2b2b"/>
+                    <circle cx=" 18" cy="-52" r="4.5" fill="#2b2b2b"/>
+                    <ellipse cx="0" cy="-38" rx="22" ry="16" fill="#ffd9de" stroke="#c86a78" stroke-width="3"/>
+                    <circle  cx="0" cy="-38" r="5" fill="#8a2c3a"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <button class="tm-btn" id="rbBtn">Juntar ✨</button>
+          
+          <p class="pair-after ring-bear-text" id="rbText">
+            A aliança e o ursinho de pelucia.
+            Confesso que quando te perguntei sobre quais objetos representavam cada um de nós fiquei surpreso com a tua resposta, como sempre a primeira coisa que veio na minha cabeça foi por que uma alinça e por que um urso de pelucia?.
+            Até você me explicar o motivo, que a aliança representa o compromisso, o amor e a união, e o urso de pelúcia representa o conforto, o aconchego e a amizade.
+            e bem juntando essas duas partes não tenho duvidas que realmente nos representamos perfeitamente, por que eu vejo em você tudo isso que a aliança representa e você vê em mim tudo isso que o ursinho representa.
+            E é por isso que eu acredito que juntos somos mais fortes, mais felizes e mais completos.
+            Até por que quando o mundo tá desabando eu sei que posso contar com você para me apoiar e me fazer sorrir, por que você sempre vai ser o meu lugar de paz nesse mundo caótico e louco.
+          </p>
+        </section>
+        <section class="tm-section future-section" id="future-letter">
+          <div class="tm-type">Carta ao futuro ✉️</div>
+          <p class="tm-question">
+            Um lembrete doce de que o que planejamos hoje nos empurra para o amanhã. Abra a carta…
+          </p>
+
+          <div class="fe-wrap">
+            <div class="fe-envelope" id="fe-envelope" role="button" aria-label="Abrir carta ao futuro">
+              <button class="fe-close" id="fe-close" aria-label="Guardar carta" style="display:none;">✖ Guardar</button>
+              <div class="fe-back"></div>
+              <div class="fe-flap"></div>
+              <div class="fe-letter">
+                <div class="fe-letter-content">
+                  <div class="fe-title">Para nós, de hoje para o amanhã 💙</div>
+                  <div id="fe-typed" class="fe-typed"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="tm-btn" id="fe-open">Abrir carta ✨</button>
+          <p class="fe-note">Toque no envelope ou no botão para abrir. A mensagem será “escrita” na hora.</p>
+        </section>
 
       </div>
     </details>
 
-  </div>
+    <!-- Modal simples para perguntas -->
+    <div class="qa-backdrop" id="qa-backdrop" aria-hidden="true">
+      <div class="qa-modal" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="qa-header">
+          <strong id="qa-title">Pergunta</strong>
+          <button class="qa-btn ghost" id="qa-close" aria-label="Fechar">✖</button>
+        </div>
+        <div class="qa-body">
+          <p id="qa-question">...</p>
+          <input id="qa-input" class="qa-input" type="text" placeholder="Sua resposta" autocomplete="off"/>
+          <div id="qa-options" class="qa-options" style="display:none;"></div>
+          <div id="qa-error" class="qa-error"></div>
+        </div>
+        <div class="qa-actions">
+          <button class="qa-btn ghost" id="qa-cancel">Cancelar</button>
+          <button class="qa-btn primary" id="qa-submit">Responder</button>
+        </div>
+      </div>
+    </div>
+
 
   <!-- confetti lib -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -883,6 +1338,7 @@
     (function(){
       const root   = document.getElementById('bouquet');
       const button = document.getElementById('bouquet-toggle');
+      if (!root || !button) return;
 
       // 1) preparar “desenho” dos caules
       root.querySelectorAll('[data-len]').forEach(path => {
@@ -891,20 +1347,15 @@
       });
 
       // 2) construir as flores dinamicamente (pétalas + miolo)
-      const PETALS = 7;                 // quantidade
-      const PETAL_RX = 10, PETAL_RY = 18;
-      const PETAL_RAD = 12;             // distância do centro
-      const CORE_R = 6;
-
+      const PETALS = 7, PETAL_RX = 10, PETAL_RY = 18, PETAL_RAD = 12, CORE_R = 6;
       root.querySelectorAll('.flower').forEach((g) => {
         const cx = parseFloat(g.getAttribute('data-cx'));
         const cy = parseFloat(g.getAttribute('data-cy'));
         const color = g.getAttribute('data-color') || '#ff7aa2';
 
-        // pétalas em círculo
-        for(let i=0; i<PETALS; i++){
-          const ang = (360/PETALS) * i;
-          const rad = ang * Math.PI/180;
+        for (let i = 0; i < PETALS; i++) {
+          const ang = (360 / PETALS) * i;
+          const rad = ang * Math.PI / 180;
           const px = cx + Math.cos(rad) * PETAL_RAD;
           const py = cy + Math.sin(rad) * PETAL_RAD;
 
@@ -922,7 +1373,6 @@
           g.appendChild(petal);
         }
 
-        // miolo
         const core = document.createElementNS('http://www.w3.org/2000/svg','circle');
         core.setAttribute('class','core');
         core.setAttribute('cx', cx);
@@ -931,29 +1381,21 @@
         g.appendChild(core);
       });
 
-      // 3) florzinhas/✨ flutuantes durante o desabrochar
+      // 3) florzinhas/✨ flutuantes
       const FLOAT_EMOJIS = ["🌸","✨","💮","💠","💖","🌼"];
       let floatTimer = null;
-
       function spawnFloaters(durationMs = 2200, everyMs = 80){
         const start = performance.now();
-
         function spawn(){
           const now = performance.now();
-          if(now - start > durationMs){ clearInterval(floatTimer); floatTimer = null; return; }
-
+          if (now - start > durationMs){ clearInterval(floatTimer); floatTimer = null; return; }
           const el = document.createElement('span');
           el.className = 'floater';
           el.textContent = FLOAT_EMOJIS[(Math.random()*FLOAT_EMOJIS.length)|0];
-
-          // posição inicial aleatória dentro do container
-          const leftPct = 20 + Math.random()*60; // 20% a 80%
+          const leftPct = 20 + Math.random()*60;
           const bottomPct = 10 + Math.random()*30;
-
           el.style.left   = leftPct + '%';
           el.style.bottom = bottomPct + '%';
-
-          // pequenas variações
           el.style.fontSize = (16 + Math.random()*12) + 'px';
           el.style.setProperty('--dur', (1.9 + Math.random()*0.9) + 's');
           el.style.setProperty('--delay', (Math.random()*0.1) + 's');
@@ -961,12 +1403,9 @@
           el.style.setProperty('--x1', (Math.random()*60 - 30) + 'px');
           el.style.setProperty('--r0', (Math.random()*-10) + 'deg');
           el.style.setProperty('--r1', (10 + Math.random()*20) + 'deg');
-
           root.appendChild(el);
           setTimeout(()=> el.remove(), 3000);
         }
-
-        // primeira leva + intervalo
         spawn();
         floatTimer = setInterval(spawn, everyMs);
       }
@@ -975,30 +1414,380 @@
       function open(){
         root.classList.add('active');
         button.textContent = 'Fechar buquê ✨';
-
-        // flutuantes enquanto desabrocha
         spawnFloaters(2400, 90);
-
-        // confete ao final
-        setTimeout(()=>{
-          if(window.confetti){
-            confetti({ particleCount: 70, spread: 60, origin:{x:.5, y:.7} });
-          }
-        }, 1900);
+        setTimeout(()=>{ if (window.confetti) confetti({ particleCount: 70, spread: 60, origin:{x:.5, y:.7} }); }, 1900);
       }
       function close(){
         root.classList.remove('active');
-        void root.offsetWidth; // reflow para resetar transições
+        void root.offsetWidth; // reflow
         button.textContent = 'Abrir buquê 💐';
       }
 
+      // clique no próprio buquê
       root.addEventListener('click', () => {
-        if(root.classList.contains('active')) close(); else open();
+        if (root.classList.contains('active')) close(); else open();
       });
+
+      // **AQUI estava o erro**: precisa ser `if (root...)`
       button.addEventListener('click', () => {
-        ifroot.classList.contains('active') ? close() : open();
+        if (root.classList.contains('active')) { close(); } else { open(); }
       });
     })();
   </script>
+  <script>
+    /* ======== 4 MESES – LÓGICA DO QUEBRA-CABEÇA (com opções) ======== */
+    (function(){
+      const grid = document.getElementById('puzzle-grid');
+      const board = document.getElementById('puzzle-board');
+      const secret = document.getElementById('puzzle-secret');
+      const progressEl = document.getElementById('puzzle-progress');
+      const resetBtn = document.getElementById('puzzle-reset');
+      if (!grid || !board || !secret || !progressEl) return;
+
+      // Agora cada pergunta pode ser:
+      // - de TEXTO:  { q, a: ["resposta1","resposta2"...] }
+      // - de OPÇÕES: { q, choices: ["A","B","C","D"], correct: 2 }   (índice da correta)
+      //   (também aceita múltiplas corretas: correct: [1,3])
+      const QUESTIONS = [
+        { q: "Em que dia dissemos nosso primeiro 'oi'?", a: ["06/06/2025","6/6/2025","06-06-2025","6-6-2025","06.06.2025"] },
+
+        { q: "Qual foi nosso primeiro passeio de 'pé na areia'?",
+          choices: ["Shopping", "Cinema", "Praia", "Parque"], correct: 2 },
+
+        { q: "Quem puxa os covers mais sem vergonha? 😂",
+          choices: ["Eu", "Você", "Nós dois"], correct: 2 },
+
+        { q: "Cor do coração que mais usamos aqui?",
+          choices: ["Vermelho ❤️", "Azul 💙", "Roxo 💜"], correct: 1 },
+
+        { q: "Complete: te amo mil _______.", a: ["milhões","milhoes"] },
+
+        { q: "Qual presente te fez realizar um sonho logo no começo?",
+          choices: ["Chocolate", "Buquê de flores", "Pelúcia"], correct: 1 },
+
+        { q: "Qual é o nosso mêsversário agora?",
+          choices: ["3 meses", "4 meses", "5 meses"], correct: 1 },
+
+        { q: "Meu refúgio de paz é o teu ______.", a: ["colo","abraço","abraco"] },
+
+        { q: "Quem é a minha galáxia rara?",
+          choices: ["O sol", "Você", "A lua"], correct: 1 },
+      ];
+
+      // Persistência simples
+      const LS_KEY = "lovePuzzle_v1";
+      const state = (()=>{ try{ return JSON.parse(localStorage.getItem(LS_KEY)) || {}; }catch{ return {}; } })();
+      if (!Array.isArray(state.solved)) state.solved = Array(9).fill(false);
+      if (typeof state.done !== "boolean") state.done = false;
+      function save(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+      // Helpers
+      const normalize = (s)=> (s||"").toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
+      const $backdrop = document.getElementById('qa-backdrop');
+      const $title = document.getElementById('qa-title');
+      const $q = document.getElementById('qa-question');
+      const $input = document.getElementById('qa-input');
+      const $opts = document.getElementById('qa-options');
+      const $err = document.getElementById('qa-error');
+      const $close = document.getElementById('qa-close');
+      const $cancel = document.getElementById('qa-cancel');
+      const $submit = document.getElementById('qa-submit');
+
+      let currentIdx = null;
+
+      function isChoiceItem(item){ return Array.isArray(item.choices) && item.choices.length > 0; }
+      function correctSet(item){
+        if (Array.isArray(item.correct)) return new Set(item.correct);
+        if (typeof item.correct === 'number') return new Set([item.correct]);
+        return new Set();
+      }
+
+      function openModal(idx){
+        const item = QUESTIONS[idx]; if (!item) return;
+        currentIdx = idx;
+        $title.textContent = `Pergunta ${idx+1} de 9`;
+        $q.textContent = item.q;
+        $err.textContent = '';
+
+        // Se for de opções: mostra grid de botões, oculta input e botão "Responder"
+        if (isChoiceItem(item)){
+          $opts.innerHTML = '';
+          $opts.style.display = '';
+          $input.style.display = 'none';
+          $submit.style.display = 'none';
+
+          const correct = correctSet(item);
+          item.choices.forEach((label, i)=>{
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'qa-option';
+            btn.textContent = label;
+            btn.dataset.index = i;
+            btn.addEventListener('click', ()=>{
+              const isOk = correct.has(i);
+              if (!isOk){
+                btn.classList.add('wrong');
+                $err.textContent = "Quase! Tenta outra 😉";
+                return;
+              }
+              btn.classList.add('correct');
+              solveCurrent();
+            });
+            $opts.appendChild(btn);
+          });
+        } else {
+          // Texto: mostra input + botão responder
+          $opts.style.display = 'none';
+          $input.style.display = '';
+          $submit.style.display = '';
+          $input.value = '';
+          setTimeout(()=> $input.focus({preventScroll:true}), 0);
+        }
+
+        $backdrop.classList.add('show');
+      }
+
+      function closeModal(){ $backdrop.classList.remove('show'); currentIdx = null; }
+      $close.addEventListener('click', closeModal);
+      $cancel.addEventListener('click', closeModal);
+      $backdrop.addEventListener('click', (e)=>{ if(e.target === $backdrop) closeModal(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+      function solveCurrent(){
+        if (currentIdx == null) return;
+        state.solved[currentIdx] = true;
+        save();
+        markTiles();
+        updateProgress();
+        closeModal();
+        checkComplete();
+      }
+
+      function checkAnswerText(){
+        if (currentIdx == null) return;
+        const item = QUESTIONS[currentIdx];
+        const val = normalize($input.value);
+        if (!val){ $err.textContent = "Digite uma resposta 💙"; return; }
+        const ok = (item.a || []).some(ans => normalize(ans) === val);
+        if (!ok){ $err.textContent = "Quase! Tenta de novo 😉"; return; }
+        solveCurrent();
+      }
+      $submit.addEventListener('click', checkAnswerText);
+      $input.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') checkAnswerText(); });
+
+      // Render/estado das peças
+      function markTiles(){
+        grid.querySelectorAll('.puzzle-tile').forEach(tile=>{
+          const idx = +tile.getAttribute('data-idx');
+          const solved = !!state.solved[idx];
+          tile.classList.toggle('solved', solved);
+          tile.setAttribute('aria-pressed', solved ? 'true' : 'false');
+        });
+      }
+      function updateProgress(){
+        const solvedCount = state.solved.filter(Boolean).length;
+        progressEl.textContent = `Progresso: ${solvedCount} / 9`;
+      }
+      function checkComplete(){
+        const allSolved = state.solved.every(Boolean);
+
+        if (allSolved && !state.done){
+          state.done = true; save();
+
+          board.classList.add('puzzle-revealed');
+          requestAnimationFrame(()=> board.classList.add('puzzle-cleared'));
+
+          const onEnd = (e)=>{
+            if(e.target !== grid) return;
+            grid.style.display = 'none';
+            grid.removeEventListener('transitionend', onEnd);
+          };
+          grid.addEventListener('transitionend', onEnd, { once:true });
+
+          try{
+            if (window.confetti){
+              confetti({ particleCount: 140, spread: 80, origin:{x:.5, y:.6} });
+              setTimeout(()=> confetti({ particleCount: 100, spread: 60 }), 300);
+            }
+          }catch{}
+        }
+
+        if (state.done){
+          board.classList.add('puzzle-revealed','puzzle-cleared');
+          grid.style.display = 'none';
+        }
+      }
+
+      function resetPuzzle(){
+        try { $backdrop.classList.remove('show'); } catch {}
+
+        localStorage.removeItem(LS_KEY);
+        state.solved = Array(9).fill(false);
+        state.done = false;
+        save();
+
+        // restaura UI
+        board.classList.remove('puzzle-revealed', 'puzzle-cleared');
+        grid.style.display = '';           // volta pro fluxo
+        grid.querySelectorAll('.puzzle-tile').forEach(t=> t.classList.remove('solved'));
+        updateProgress();
+
+        // pequena animação de retorno (opcional)
+        grid.style.opacity = '0';
+        grid.style.transform = 'scale(0.98)';
+        requestAnimationFrame(()=>{
+          grid.style.transition = 'opacity .25s ease, transform .25s ease';
+          grid.style.opacity = '1';
+          grid.style.transform = 'scale(1)';
+          setTimeout(()=> grid.style.transition = '', 260);
+        });
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (confirm('Quer mesmo resetar suas respostas?')) resetPuzzle();
+        });
+      }
+
+      // Click nas peças
+      grid.addEventListener('click', (e)=>{
+        const tile = e.target.closest('.puzzle-tile');
+        if (!tile) return;
+        const idx = +tile.getAttribute('data-idx');
+        if (state.solved[idx]) return;
+        openModal(idx);
+      });
+
+      // Inicialização
+      markTiles();
+      updateProgress();
+      checkComplete();
+    })();
+  </script>
+  <script>
+    (function(){
+      const wrap = document.getElementById('rbWrap');
+      const btn  = document.getElementById('rbBtn');
+      const spark= document.getElementById('rbSpark');
+      const text = document.getElementById('rbText');
+      if(!wrap||!btn) return;
+
+      let joined = false;
+
+      function confettiLite(){
+        if (!window.confetti) return;
+        confetti({ particleCount: 90, spread: 70, origin:{x:.5, y:.55} });
+      }
+
+      function join(){
+        joined = true;
+        wrap.classList.add('joined');
+        btn.textContent = 'Separar ↺';
+        spark.textContent = '✨';
+        confettiLite();
+        // não apague o texto aqui
+      }
+      function split(){
+        joined = false;
+        wrap.classList.remove('joined');
+        btn.textContent = 'Juntar ✨';
+      }
+
+      btn.addEventListener('click', ()=> joined ? split() : join());
+      wrap.addEventListener('click', ()=> { if(!joined) join(); });
+    })();
+  </script>
+  <script>
+    (function(){
+      const env   = document.getElementById('fe-envelope');
+      const btn   = document.getElementById('fe-open');
+      const typed = document.getElementById('fe-typed');
+      const closeBtn = document.getElementById('fe-close');
+      if(!env || !btn || !typed || !closeBtn) return;
+
+      // seu texto
+      const MESSAGE = 
+        `Amor,
+
+        se este bilhete chegou até nós, é porque seguimos escolhendo o mesmo caminho:
+        o de sonhar juntos. Este mês foi sobre olhar para frente — traçar metas,
+        combinar passos e guardar coragem para os dias difíceis.
+
+        Que o futuro nos encontre de mãos dadas: planejando, rindo e construindo
+        um lar nas pequenas vitórias. Que a gente lembre de regar nossos planos
+        com paciência, honestidade e gentileza.
+
+        Que nunca nos falte a vontade de crescer, aprender e, acima de tudo,
+        amar. Que a gente saiba celebrar cada conquista, por menor que seja,
+        e que nos apoiemos nas derrotas, sabendo que são apenas capítulos
+        de uma história maior.
+
+        Se tem uma coisa que essa semana que passou me ensinou, é que
+        mesmo nos dias mais dificeis, quando tudo parece incerto,
+        o amor que a gente cultiva é o que me dá força e vontade para continuar e vencer os desafios.
+
+        Te fiz a promessa de estar ao teu lado, e é isso que quero fazer:
+        estar contigo, na alegria e na tristeza, na saúde e na doença e acima de tudo realizar seus sonhos e os meus contigo.
+
+        Pois te ver feliz é aquilo que me faz feliz.
+
+        Enem preciso dizer que te amo, por que isso você já sabe.
+        Mas só para deixar claro te amo mil milhões.
+        E claro o final dessa história está cada vez mais próximo de ser escrito.
+        E mal posso esperar pelo próximo capítulo.
+
+        O amanhã nos aguarda — e ele tem o nosso nome.
+
+        Com amor,
+        JP.`;
+
+      let hasTyped = false;
+      let isOpen = false;
+
+      function typewrite(text, el, speed=16){
+        el.textContent = '';
+        el.style.borderRightColor = 'rgba(0,0,0,.5)';
+        let i = 0;
+        const timer = setInterval(()=>{
+          el.textContent = text.slice(0, i++);
+          if (i > text.length){
+            clearInterval(timer);
+            el.style.borderRightColor = 'transparent';
+          }
+        }, speed);
+      }
+
+      function openLetter(){
+        if (isOpen) return;
+        isOpen = true;
+        env.classList.add('open');
+        btn.textContent = 'Guardar carta ✉️';
+        closeBtn.style.display = '';
+        if (!hasTyped){
+          setTimeout(()=> typewrite(MESSAGE, typed, 16), 650);
+          hasTyped = true;
+        }
+        try{ if (window.confetti) confetti({ particleCount: 80, spread: 70, origin:{x:.5,y:.55} }); }catch{}
+      }
+
+      function closeLetter(){
+        if (!isOpen) return;
+        isOpen = false;
+        env.classList.remove('open');
+        // tira o cursor, mas mantém o texto já escrito
+        typed.style.borderRightColor = 'transparent';
+        btn.textContent = 'Abrir carta ✨';
+        closeBtn.style.display = 'none';
+      }
+
+      // botão externo alterna abrir/guardar
+      btn.addEventListener('click', ()=> isOpen ? closeLetter() : openLetter());
+      // clique no envelope sempre abre
+      env.addEventListener('click', openLetter);
+      // botão interno fecha
+      closeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); closeLetter(); });
+    })();
+  </script>
+
 </body>
 </html>
