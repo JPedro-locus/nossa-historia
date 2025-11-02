@@ -691,63 +691,34 @@
       border:1px solid rgba(255,255,255,.6); background:rgba(0,0,0,.25);
       cursor:pointer;
     }
-    /* ======== 5 MESES – ESTRELAS ======== */
-    .stars-wrap{
-      margin: 24px auto;
-      width: min(94vw, 760px);
+    /* Linha da constelação acompanhando o brilho */
+    #leo-const{
+      stroke:#7cc4ff;
+      stroke-width:2.5;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      filter: drop-shadow(0 0 10px rgba(124,196,255,.6));
+      animation: constPulse 3.6s ease-in-out infinite, constGlow 7s ease-in-out infinite;
     }
-    .stars-panel{
-      display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      margin-bottom:10px;
+    @keyframes constPulse{
+      0%,100% { stroke-width:2.5; opacity:.9; }
+      50%     { stroke-width:3.2; opacity:1; }
     }
-    .stars-panel .tm-btn{ margin:0; }
-    .stars-scene{
-      border-radius: 14px; overflow: hidden;
-      border:1px solid rgba(255,255,255,.35);
-      background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.08), rgba(0,0,0,.22) 55%), rgba(0,0,0,.18);
-      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    @keyframes constGlow{
+      0%,100% { filter: drop-shadow(0 0 8px rgba(124,196,255,.45)); }
+      50%     { filter: drop-shadow(0 0 14px rgba(124,196,255,.85)); }
     }
-    .stars-svg{ width:100%; height:auto; display:block; }
-    .star{
-      cursor:pointer;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
-      transition: transform .15s ease, opacity .2s ease;
-    }
-    .star:hover{ transform: scale(1.12); }
-    .star .twinkle{
-      opacity:.6;
-      transition: opacity .25s ease;
-    }
-    .star.active .twinkle{ opacity:1; }
-    .star.active .core{
-      opacity:1;
-      transform: scale(1.12);
-    }
-    .star .core{
-      opacity:.85;
-      transition: transform .15s ease, opacity .2s ease;
-    }
-    .constellation{
-      stroke:#7cc4ff; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;
-      filter: drop-shadow(0 0 8px rgba(124,196,255,.6));
-      opacity:.0; transition: opacity .35s ease;
-    }
-    .constellation.show{ opacity:1; }
-    .stars-hint{
-      font-size:.95em; opacity:.9; text-align:center; margin-top:8px;
-    }
-    .stars-message{
-      margin-top:12px; text-align:center;
-      font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-      line-height:1.5;
-      opacity:0; max-height:0; overflow:hidden;
-      transition: opacity .35s ease, max-height .35s ease;
-    }
-    .stars-message.show{ opacity:1; max-height:400px; }
-    .stars-type{
-      border-right:2px solid rgba(255,255,255,.6);
-      white-space:pre-wrap;
-    }
+
+    /* Lua + estrelas (já usados) */
+    #leo-moon { transform-origin:center; animation: floatMoon 12s ease-in-out infinite; }
+    @keyframes floatMoon { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    #bg-stars circle { animation: twinkle 6s ease-in-out infinite; }
+    @keyframes twinkle { 0%,100%{opacity:.25} 50%{opacity:.55} }
+    #leo-stars circle { animation: pulseStar 3s ease-in-out infinite; transform-origin:center; }
+    @keyframes pulseStar { 0%,100%{transform:scale(1);opacity:.85} 50%{transform:scale(1.18);opacity:1} }
+
+    /* Botão de áudio da seção */
+    #sky-audio-btn{ margin:10px 0 0; }
   </style>
 </head>
 
@@ -1204,110 +1175,87 @@
           Dica: toque/click em duas peças para trocá-las. Quando terminar, tem confete 💙
         </p>
       </section>
-      <section class="tm-section" id="stars-five-months">
-        <div class="tm-type">Mensagem escondida nas estrelas ✨</div>
-        <p class="tm-question">Clique nas estrelas certas para formarmos nossa constelação. Quando todas acenderem, revelo a mensagem. 💙</p>
+      <section class="tm-section" id="sky-born">
+        <div class="tm-type">Céu de Recife — 14 de agosto de 2001 🌙</div>
+        <p class="tm-question">Assim estava o céu na noite em que você nasceu — e o Leão brilhava sobre Recife 💙</p>
 
         <div class="stars-wrap">
-          <div class="stars-panel">
-            <div style="display:flex; gap:8px; align-items:center;">
-              <button class="tm-btn" id="stars-reset">Resetar ↺</button>
-              <button class="tm-btn" id="stars-hint">Dica ✨</button>
-            </div>
-            <div class="stars-hint" id="stars-progress">0 / 7 estrelas</div>
-          </div>
-
           <div class="stars-scene">
-            <!-- ViewBox amplo e responsivo -->
-            <svg class="stars-svg" viewBox="0 0 800 500" aria-label="Céu estrelado">
-              <!-- fundo pontilhado (estrelas de cenário) -->
-              <g id="bg-points" fill="white" opacity=".35">
-                <!-- espalhadas levemente; só decoração -->
-                <circle cx="60" cy="60" r="1.2"/>
-                <circle cx="150" cy="120" r="1.6"/>
-                <circle cx="260" cy="90" r="1.1"/>
-                <circle cx="370" cy="60" r="1.4"/>
-                <circle cx="460" cy="140" r="1.3"/>
-                <circle cx="550" cy="90" r="1.5"/>
-                <circle cx="640" cy="130" r="1.2"/>
-                <circle cx="730" cy="70" r="1.6"/>
-                <circle cx="90" cy="210" r="1.3"/>
-                <circle cx="210" cy="220" r="1.4"/>
-                <circle cx="310" cy="260" r="1.2"/>
-                <circle cx="420" cy="230" r="1.5"/>
-                <circle cx="520" cy="240" r="1.1"/>
-                <circle cx="620" cy="210" r="1.3"/>
-                <circle cx="720" cy="260" r="1.2"/>
-                <circle cx="130" cy="330" r="1.4"/>
-                <circle cx="230" cy="380" r="1.5"/>
-                <circle cx="340" cy="350" r="1.2"/>
-                <circle cx="450" cy="340" r="1.4"/>
-                <circle cx="560" cy="370" r="1.3"/>
-                <circle cx="670" cy="330" r="1.2"/>
-                <circle cx="740" cy="400" r="1.4"/>
+            <svg class="stars-svg" viewBox="0 0 800 500" aria-label="Céu de Recife 14/08/2001">
+              <!-- fundo noturno -->
+              <rect width="800" height="500" fill="url(#gradNight)" />
+              <defs>
+                <radialGradient id="gradNight" cx="50%" cy="40%" r="70%">
+                  <stop offset="0%" stop-color="#0d1b3a"/>
+                  <stop offset="100%" stop-color="#01060f"/>
+                </radialGradient>
+              </defs>
+
+              <!-- LUA MINGUANTE -->
+              <g id="leo-moon" transform="translate(650,90)">
+                <circle r="20" fill="#f6f1d5" filter="drop-shadow(0 0 12px rgba(255,255,220,.5))"/>
+                <path d="M10,-20A20,20 0 1,1 10,20A18,18 0 1,0 10,-20Z" fill="#0b1024" opacity=".8"/>
               </g>
 
-              <!-- linhas da constelação (aparecem quando resolve) -->
-              <polyline id="constellation" class="constellation"
-                points="120,300  200,210  290,260  380,180  480,210  560,150  660,220"/>
-
-              <!-- estrelas clicáveis (algumas corretas, outras iscas) -->
-              <g id="stars-group">
-                <!-- use data-key para identificar as CORRETAS -->
-                <!-- corretas (7): -->
-                <g class="star" data-key="A" transform="translate(120,300)">
-                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
-                  <circle class="core" r="3.6" fill="#fff"/>
-                </g>
-                <g class="star" data-key="B" transform="translate(200,210)">
-                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
-                  <circle class="core" r="3.6" fill="#fff"/>
-                </g>
-                <g class="star" data-key="C" transform="translate(290,260)">
-                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
-                  <circle class="core" r="3.6" fill="#fff"/>
-                </g>
-                <g class="star" data-key="D" transform="translate(380,180)">
-                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
-                  <circle class="core" r="3.6" fill="#fff"/>
-                </g>
-                <g class="star" data-key="E" transform="translate(480,210)">
-                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
-                  <circle class="core" r="3.6" fill="#fff"/>
-                </g>
-                <g class="star" data-key="F" transform="translate(560,150)">
-                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
-                  <circle class="core" r="3.6" fill="#fff"/>
-                </g>
-                <g class="star" data-key="G" transform="translate(660,220)">
-                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
-                  <circle class="core" r="3.6" fill="#fff"/>
-                </g>
-
-                <!-- iscas (podem ser clicadas, mas não contam) -->
-                <g class="star" transform="translate(250,160)">
-                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
-                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
-                </g>
-                <g class="star" transform="translate(330,320)">
-                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
-                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
-                </g>
-                <g class="star" transform="translate(600,280)">
-                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
-                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
-                </g>
-                <g class="star" transform="translate(720,160)">
-                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
-                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
-                </g>
+              <!-- estrelas de fundo -->
+              <g id="bg-stars" fill="white" opacity=".35">
+                <circle cx="60" cy="80" r="1.1"/><circle cx="120" cy="130" r="1.4"/><circle cx="210" cy="90" r="1.2"/>
+                <circle cx="330" cy="60" r="1.3"/><circle cx="430" cy="110" r="1.4"/><circle cx="520" cy="80" r="1.5"/>
+                <circle cx="610" cy="120" r="1.2"/><circle cx="740" cy="70" r="1.4"/><circle cx="100" cy="210" r="1.3"/>
+                <circle cx="250" cy="250" r="1.2"/><circle cx="400" cy="260" r="1.4"/><circle cx="550" cy="220" r="1.3"/>
+                <circle cx="700" cy="250" r="1.1"/><circle cx="140" cy="330" r="1.3"/><circle cx="280" cy="370" r="1.5"/>
+                <circle cx="430" cy="350" r="1.4"/><circle cx="560" cy="360" r="1.2"/><circle cx="680" cy="380" r="1.3"/>
+                <circle cx="750" cy="330" r="1.2"/>
               </g>
+
+              <!-- constelação Leão (linha acompanha o brilho) -->
+              <polyline id="leo-const"
+                points="200,250 260,190 340,170 420,150 480,180 560,200 640,240"
+                fill="none"/>
+
+              <!-- estrelas principais de Leão -->
+              <g id="leo-stars" fill="#aee1ff">
+                <circle cx="200" cy="250" r="6"/><!-- Regulus -->
+                <circle cx="260" cy="190" r="5"/><!-- Algieba -->
+                <circle cx="340" cy="170" r="4.5"/><!-- Adhafera -->
+                <circle cx="420" cy="150" r="4"/><!-- Ras Elased -->
+                <circle cx="480" cy="180" r="5"/><!-- Zosma -->
+                <circle cx="560" cy="200" r="4.8"/><!-- Chertan -->
+                <circle cx="640" cy="240" r="5"/><!-- Denebola -->
+              </g>
+
+              <!-- rótulo -->
+              <text x="480" y="280" fill="rgba(255,255,255,.85)" font-size="18"
+                    font-family="Rethink Sans, sans-serif" letter-spacing="2">LEÃO ♌︎</text>
             </svg>
           </div>
 
-          <div class="stars-message" id="stars-msg">
-            <div class="tm-letter-title" style="margin-bottom:4px;">Constelação formada ✨</div>
-            <div id="stars-typed" class="stars-type"></div>
+          <!-- player da trilha "Sinais" -->
+          <button class="tm-btn" id="sky-audio-btn" aria-pressed="false">▶️ Tocar “Sinais”</button>
+          <audio id="sky-audio" src="./music/Luan_Santana_-_Sinais_Znaki_(mp3.pm).mp3" preload="auto" loop style="display:none"></audio>
+
+          <!-- mensagem -->
+          <div class="stars-message show" style="margin-top:16px;">
+            <div class="tm-letter-title" style="margin-bottom:4px;">
+              O dia em que o mundo sorriu de um novo jeito
+            </div>
+            <div class="stars-type" style="border:none;">
+              Naquela noite de 14 de agosto, o céu guardava segredos que só o tempo contaria.<br>
+              A Lua se inclinava sobre Recife, testemunha do instante em que o universo resolveu
+              desenhar você no mundo — o meu sinal mais claro de que nada é por acaso.<br><br>
+
+              Desde então, é como se o destino tivesse nos sussurrado baixinho:
+              “é aqui, é agora”. E mesmo sem entender, meu coração entendeu primeiro —
+              porque quando é pra ser, o tempo se curva, o vento muda e tudo se alinha.<br><br>
+
+              No dia 11 de junho, a vida cruzou nossos caminhos e eu soube.
+              Cada gesto seu, cada olhar, parecia escrito nas estrelas desde sempre.
+              E hoje eu percebo que não foi sorte: foi propósito, foi encontro, foi milagre.<br><br>
+
+              Se o amor tem um idioma próprio, o meu aprendeu a falar o seu nome.
+              Porque você é o meu sinal — aquele que veio pra ficar,
+              que acende o céu e me lembra todos os dias o quanto te amo. 💙
+            </div>
           </div>
         </div>
       </section>
@@ -2275,143 +2223,61 @@
   </script>
   <script>
     (function(){
-      const acc = document.getElementById('acc-five-months');
-      const svg = document.querySelector('#stars-five-months .stars-svg');
-      const group = document.getElementById('stars-group');
-      const poly  = document.getElementById('constellation');
-      const btnReset = document.getElementById('stars-reset');
-      const btnHint  = document.getElementById('stars-hint');
-      const progress = document.getElementById('stars-progress');
-      const msgWrap  = document.getElementById('stars-msg');
-      const typedEl  = document.getElementById('stars-typed');
+      // Fade-in/out suave para o áudio desta seção
+      const btn   = document.getElementById('sky-audio-btn');
+      const audio = document.getElementById('sky-audio');
+      if(!btn || !audio) return;
 
-      if (!svg || !group || !poly || !btnReset || !btnHint || !progress || !msgWrap || !typedEl) return;
-
-      const TARGET_KEYS = ['A','B','C','D','E','F','G']; // 7 estrelas corretas
-      const total = TARGET_KEYS.length;
-      let active = new Set();     // keys ativas
-      let solved = false;
-
-      function updateProgress(){
-        progress.textContent = `${active.size} / ${total} estrelas`;
+      let fading = null;
+      function fadeTo(targetVol=1, ms=800){
+        if(fading) cancelAnimationFrame(fading);
+        const start = audio.volume;
+        const t0 = performance.now();
+        (function step(t){
+          const k = Math.min(1, (t - t0) / ms);
+          audio.volume = start + (targetVol - start) * k;
+          if (k < 1) fading = requestAnimationFrame(step);
+        })(t0);
       }
 
-      function typewrite(text, el, speed=18){
-        el.textContent = '';
-        el.style.borderRightColor = 'rgba(255,255,255,.6)';
-        let i = 0;
-        const timer = setInterval(()=>{
-          el.textContent = text.slice(0, i++);
-          if (i > text.length){
-            clearInterval(timer);
-            el.style.borderRightColor = 'transparent';
-          }
-        }, speed);
-      }
-
-      function celebrate(){
+      async function play(){
         try{
-          if (window.confetti){
-            confetti({ particleCount: 140, spread: 80, origin:{x:.5, y:.6} });
-            setTimeout(()=> confetti({ particleCount: 100, spread: 60 }), 280);
-          }
-        }catch{}
+          audio.volume = 0;
+          await audio.play();
+          fadeTo(1, 900);
+          btn.textContent = '⏸️ Pausar “Sinais”';
+          btn.setAttribute('aria-pressed', 'true');
+        }catch(e){ console.warn('Autoplay bloqueado, clique no botão para tocar.'); }
+      }
+      function pause(){
+        fadeTo(0, 600);
+        setTimeout(()=> audio.pause(), 650);
+        btn.textContent = '▶️ Tocar “Sinais”';
+        btn.setAttribute('aria-pressed', 'false');
       }
 
-      function checkSolved(){
-        if (solved) return true;
-        if (active.size !== total) return false;
-        // todos os keys presentes?
-        for (const k of TARGET_KEYS) if (!active.has(k)) return false;
-
-        solved = true;
-        poly.classList.add('show');
-        msgWrap.classList.add('show');
-
-        const MESSAGE =
-    `Te amo mil milhões 💙
-    Você é meu universo particular —
-    onde tudo em mim encontra gravidade.`;
-
-        setTimeout(()=> typewrite(MESSAGE, typedEl, 16), 200);
-        celebrate();
-        return true;
-      }
-
-      function twinkleOnce(node){
-        node.style.transform = 'scale(1.18)';
-        node.style.opacity = '1';
-        setTimeout(()=>{
-          node.style.transform = '';
-          node.style.opacity = '';
-        }, 420);
-      }
-
-      function handleClickStar(g){
-        const key = g.dataset.key;
-        // estrela “isca” (sem key): só pisca fofo
-        if (!key){
-          twinkleOnce(g);
-          return;
-        }
-        // alterna ativa
-        if (active.has(key)){
-          active.delete(key);
-          g.classList.remove('active');
-        } else {
-          active.add(key);
-          g.classList.add('active');
-        }
-        updateProgress();
-        checkSolved();
-      }
-
-      function resetAll(){
-        active.clear();
-        solved = false;
-        group.querySelectorAll('.star').forEach(s=> s.classList.remove('active'));
-        poly.classList.remove('show');
-        msgWrap.classList.remove('show');
-        typedEl.textContent = '';
-        typedEl.style.borderRightColor = 'transparent';
-        updateProgress();
-      }
-
-      // delegação de clique
-      group.addEventListener('click', (e)=>{
-        const starG = e.target.closest('.star');
-        if (!starG) return;
-        handleClickStar(starG);
+      btn.addEventListener('click', ()=>{
+        if (audio.paused) play(); else pause();
       });
 
-      // botões
-      btnReset.addEventListener('click', resetAll);
-      btnHint.addEventListener('click', ()=>{
-        // destaca rapidamente as corretas que ainda faltam
-        const missing = TARGET_KEYS.filter(k=> !active.has(k));
-        if (!missing.length) return;
-        missing.forEach(k=>{
-          const g = group.querySelector(`.star[data-key="${k}"]`);
-          if (g){
-            g.querySelector('.twinkle')?.setAttribute('fill','rgba(173,216,255,.95)');
-            twinkleOnce(g);
-            setTimeout(()=>{
-              g.querySelector('.twinkle')?.setAttribute('fill','rgba(173,216,255,.7)');
-            }, 520);
-          }
-        });
-      });
+      // Tenta tocar quando a seção entrar na tela (só se o usuário já interagiu com a página)
+      const section = document.getElementById('sky-born');
+      const acc = document.getElementById('acc-five-months');
+      const tryAutoplay = ()=> { if (audio.paused) play(); };
 
-      // re-inicializa quando a seção abrir (caso carregue fechada)
-      acc?.addEventListener('toggle', ()=>{
-        if (acc.open){
-          // só atualiza o progresso (mantém estado do usuário)
-          updateProgress();
-        }
-      });
+      // ao abrir a aba de 5 meses
+      acc?.addEventListener('toggle', ()=> { if (acc.open) setTimeout(tryAutoplay, 250); });
 
-      // init
-      updateProgress();
+      // se já estiver aberta, tenta ao rolar
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=> { if(e.isIntersecting) tryAutoplay(); });
+      }, { threshold: 0.4 });
+      if (section) io.observe(section);
+
+      // qualquer clique dentro da seção também libera o play
+      section?.addEventListener('click', ()=>{
+        if (audio.paused) play();
+      }, { once:true });
     })();
     </script>
 
