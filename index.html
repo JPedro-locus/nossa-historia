@@ -641,6 +641,113 @@
       padding:6px 10px; font-weight:700; color:#333; cursor:pointer;
     }
     .fe-close:hover{ background: rgba(0,0,0,.14); }
+
+    /* ======== 5 MESES – QUEBRA-CABEÇA DE FOTO ======== */
+    .jigsaw-wrap{
+      margin: 28px auto 14px;
+      max-width: 720px;
+    }
+    .jigsaw-panel{
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
+      flex-wrap:wrap; margin-bottom:10px;
+    }
+    .jigsaw-panel .tm-btn{ margin:0; }
+    .jigsaw-board{
+      position:relative;
+      width:min(94vw, 720px);
+      aspect-ratio: 4/3;              /* fica responsivo; mude para 1/1 se quiser quadrado */
+      border-radius:12px; overflow:hidden;
+      box-shadow:0 12px 28px rgba(0,0,0,.28);
+      background: rgba(0,0,0,.15);
+      border:1px solid rgba(255,255,255,.35);
+      display:grid;
+      user-select:none;
+      touch-action: manipulation;
+    }
+    .jig-tile{
+      position:relative;
+      border:1px dashed rgba(255,255,255,.35);
+      background-size: 100% 100%;
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .2s ease;
+    }
+    .jig-tile:focus-visible{ outline: 2px solid #fff; }
+    .jig-tile:hover{ transform: translateY(-1px); }
+    .jig-tile.selected{
+      border-color: rgba(0,114,255,.9);
+      box-shadow: 0 0 0 3px rgba(0,114,255,.18) inset;
+    }
+    .jigsaw-stats{
+      margin-top:10px; text-align:center; font-size:.98em; opacity:.9;
+    }
+    .jigsaw-preview{
+      display:flex; align-items:center; gap:8px;
+      opacity:.9; font-size:.95em;
+    }
+    .jigsaw-preview img{ width:64px; height:48px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,.35); }
+    input[type="file"].jig-file{ display:none; }
+    .jig-file-label{
+      display:inline-block; padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.6); background:rgba(0,0,0,.25);
+      cursor:pointer;
+    }
+    /* ======== 5 MESES – ESTRELAS ======== */
+    .stars-wrap{
+      margin: 24px auto;
+      width: min(94vw, 760px);
+    }
+    .stars-panel{
+      display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .stars-panel .tm-btn{ margin:0; }
+    .stars-scene{
+      border-radius: 14px; overflow: hidden;
+      border:1px solid rgba(255,255,255,.35);
+      background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.08), rgba(0,0,0,.22) 55%), rgba(0,0,0,.18);
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    }
+    .stars-svg{ width:100%; height:auto; display:block; }
+    .star{
+      cursor:pointer;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+      transition: transform .15s ease, opacity .2s ease;
+    }
+    .star:hover{ transform: scale(1.12); }
+    .star .twinkle{
+      opacity:.6;
+      transition: opacity .25s ease;
+    }
+    .star.active .twinkle{ opacity:1; }
+    .star.active .core{
+      opacity:1;
+      transform: scale(1.12);
+    }
+    .star .core{
+      opacity:.85;
+      transition: transform .15s ease, opacity .2s ease;
+    }
+    .constellation{
+      stroke:#7cc4ff; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;
+      filter: drop-shadow(0 0 8px rgba(124,196,255,.6));
+      opacity:.0; transition: opacity .35s ease;
+    }
+    .constellation.show{ opacity:1; }
+    .stars-hint{
+      font-size:.95em; opacity:.9; text-align:center; margin-top:8px;
+    }
+    .stars-message{
+      margin-top:12px; text-align:center;
+      font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+      line-height:1.5;
+      opacity:0; max-height:0; overflow:hidden;
+      transition: opacity .35s ease, max-height .35s ease;
+    }
+    .stars-message.show{ opacity:1; max-height:400px; }
+    .stars-type{
+      border-right:2px solid rgba(255,255,255,.6);
+      white-space:pre-wrap;
+    }
   </style>
 </head>
 
@@ -1057,6 +1164,155 @@
         </div>
       </div>
     </div>
+
+    <details class="accordion" id="acc-five-months">
+    <summary>
+      <span>🧩💙 5 meses</span>
+      <span class="chev">▸</span>
+    </summary>
+    <div class="accordion-content">
+      <section class="tm-section" id="tm-five-months">
+        <div class="tm-type">Nosso 5º mês começou com um joguinho novo! 🧩</div>
+        <p class="tm-question">Monte o quebra-cabeça usando uma foto nossa. Você pode escolher a dificuldade ou trocar a imagem.</p>
+
+        <div class="jigsaw-wrap">
+          <div class="jigsaw-panel">
+            <div class="jigsaw-preview">
+              <span>Prévia:</span>
+              <img id="jg-preview" src="./images/puzzle-5m.jpg" alt="Prévia da foto do quebra-cabeça">
+            </div>
+
+            <div style="display:flex; gap:8px; align-items:center;">
+              <label for="jg-size">Dificuldade:</label>
+              <select id="jg-size" class="tm-btn" style="padding:8px 12px">
+                <option value="3">Fácil (3×3)</option>
+                <option value="4" selected>Médio (4×4)</option>
+                <option value="5">Desafio (5×5)</option>
+              </select>
+              <button class="tm-btn" id="jg-shuffle">Embaralhar ↻</button>
+
+              <label class="jig-file-label" for="jg-file">Trocar foto</label>
+              <input id="jg-file" class="jig-file" type="file" accept="image/*">
+            </div>
+          </div>
+
+          <div id="jigsaw-board" class="jigsaw-board" aria-label="Tabuleiro do quebra-cabeça"></div>
+          <div class="jigsaw-stats" id="jigsaw-stats">Movimentos: 0 • Tempo: 00:00</div>
+        </div>
+
+        <p class="tm-question" style="margin-top:12px;">
+          Dica: toque/click em duas peças para trocá-las. Quando terminar, tem confete 💙
+        </p>
+      </section>
+      <section class="tm-section" id="stars-five-months">
+        <div class="tm-type">Mensagem escondida nas estrelas ✨</div>
+        <p class="tm-question">Clique nas estrelas certas para formarmos nossa constelação. Quando todas acenderem, revelo a mensagem. 💙</p>
+
+        <div class="stars-wrap">
+          <div class="stars-panel">
+            <div style="display:flex; gap:8px; align-items:center;">
+              <button class="tm-btn" id="stars-reset">Resetar ↺</button>
+              <button class="tm-btn" id="stars-hint">Dica ✨</button>
+            </div>
+            <div class="stars-hint" id="stars-progress">0 / 7 estrelas</div>
+          </div>
+
+          <div class="stars-scene">
+            <!-- ViewBox amplo e responsivo -->
+            <svg class="stars-svg" viewBox="0 0 800 500" aria-label="Céu estrelado">
+              <!-- fundo pontilhado (estrelas de cenário) -->
+              <g id="bg-points" fill="white" opacity=".35">
+                <!-- espalhadas levemente; só decoração -->
+                <circle cx="60" cy="60" r="1.2"/>
+                <circle cx="150" cy="120" r="1.6"/>
+                <circle cx="260" cy="90" r="1.1"/>
+                <circle cx="370" cy="60" r="1.4"/>
+                <circle cx="460" cy="140" r="1.3"/>
+                <circle cx="550" cy="90" r="1.5"/>
+                <circle cx="640" cy="130" r="1.2"/>
+                <circle cx="730" cy="70" r="1.6"/>
+                <circle cx="90" cy="210" r="1.3"/>
+                <circle cx="210" cy="220" r="1.4"/>
+                <circle cx="310" cy="260" r="1.2"/>
+                <circle cx="420" cy="230" r="1.5"/>
+                <circle cx="520" cy="240" r="1.1"/>
+                <circle cx="620" cy="210" r="1.3"/>
+                <circle cx="720" cy="260" r="1.2"/>
+                <circle cx="130" cy="330" r="1.4"/>
+                <circle cx="230" cy="380" r="1.5"/>
+                <circle cx="340" cy="350" r="1.2"/>
+                <circle cx="450" cy="340" r="1.4"/>
+                <circle cx="560" cy="370" r="1.3"/>
+                <circle cx="670" cy="330" r="1.2"/>
+                <circle cx="740" cy="400" r="1.4"/>
+              </g>
+
+              <!-- linhas da constelação (aparecem quando resolve) -->
+              <polyline id="constellation" class="constellation"
+                points="120,300  200,210  290,260  380,180  480,210  560,150  660,220"/>
+
+              <!-- estrelas clicáveis (algumas corretas, outras iscas) -->
+              <g id="stars-group">
+                <!-- use data-key para identificar as CORRETAS -->
+                <!-- corretas (7): -->
+                <g class="star" data-key="A" transform="translate(120,300)">
+                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
+                  <circle class="core" r="3.6" fill="#fff"/>
+                </g>
+                <g class="star" data-key="B" transform="translate(200,210)">
+                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
+                  <circle class="core" r="3.6" fill="#fff"/>
+                </g>
+                <g class="star" data-key="C" transform="translate(290,260)">
+                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
+                  <circle class="core" r="3.6" fill="#fff"/>
+                </g>
+                <g class="star" data-key="D" transform="translate(380,180)">
+                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
+                  <circle class="core" r="3.6" fill="#fff"/>
+                </g>
+                <g class="star" data-key="E" transform="translate(480,210)">
+                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
+                  <circle class="core" r="3.6" fill="#fff"/>
+                </g>
+                <g class="star" data-key="F" transform="translate(560,150)">
+                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
+                  <circle class="core" r="3.6" fill="#fff"/>
+                </g>
+                <g class="star" data-key="G" transform="translate(660,220)">
+                  <circle class="twinkle" r="9" fill="rgba(173,216,255,.7)"/>
+                  <circle class="core" r="3.6" fill="#fff"/>
+                </g>
+
+                <!-- iscas (podem ser clicadas, mas não contam) -->
+                <g class="star" transform="translate(250,160)">
+                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
+                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
+                </g>
+                <g class="star" transform="translate(330,320)">
+                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
+                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
+                </g>
+                <g class="star" transform="translate(600,280)">
+                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
+                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
+                </g>
+                <g class="star" transform="translate(720,160)">
+                  <circle class="twinkle" r="7" fill="rgba(173,216,255,.4)"/>
+                  <circle class="core" r="2.8" fill="#fff" opacity=".7"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <div class="stars-message" id="stars-msg">
+            <div class="tm-letter-title" style="margin-bottom:4px;">Constelação formada ✨</div>
+            <div id="stars-typed" class="stars-type"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </details>
 
 
   <!-- confetti lib -->
@@ -1788,6 +2044,376 @@
       closeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); closeLetter(); });
     })();
   </script>
+  <script>
+  /* ======== 5 MESES – QUEBRA-CABEÇA DE FOTO (click-to-swap) ======== */
+  (function(){
+    const board   = document.getElementById('jigsaw-board');
+    const sizeSel = document.getElementById('jg-size');
+    const shuffleBtn = document.getElementById('jg-shuffle');
+    const fileInp = document.getElementById('jg-file');
+    const preview = document.getElementById('jg-preview');
+    const statsEl = document.getElementById('jigsaw-stats');
+
+    if(!board || !sizeSel || !shuffleBtn || !fileInp || !preview || !statsEl) return;
+
+    // --- helper para garantir que a imagem está carregada antes de montar
+    function preloadImage(src){
+      return new Promise((resolve, reject)=>{
+        const img = new Image();
+        img.onload = ()=> resolve(src);
+        img.onerror = (e)=> reject(e);
+        img.src = src;
+      });
+    }
+
+    // estado
+    let IMG_SRC = preview.getAttribute('src') || 'images/20250629_202254.jpg'; // evite "./"
+    let N = parseInt(sizeSel.value, 10) || 4;
+    let tiles = [];          // [{el, idx}] idx = índice CORRETO
+    let order = [];          // array de índices na ordem atual
+    let firstPick = null;    // {i, el}
+    let moves = 0;
+    let timerId = null, startTs = null;
+
+    // helpers
+    const pad2 = (n)=> (n<10?'0':'') + n;
+    function updateStats(){
+      const secs = startTs ? Math.floor((Date.now() - startTs)/1000) : 0;
+      const mm = pad2(Math.floor(secs/60)), ss = pad2(secs%60);
+      statsEl.textContent = `Movimentos: ${moves} • Tempo: ${mm}:${ss}`;
+    }
+    function startTimer(){
+      stopTimer(); startTs = Date.now();
+      timerId = setInterval(updateStats, 1000);
+      updateStats();
+    }
+    function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+
+    function buildBoard(){
+      // grid
+      board.style.gridTemplateColumns = `repeat(${N}, 1fr)`;
+      board.style.gridTemplateRows    = `repeat(${N}, 1fr)`;
+      board.innerHTML = '';
+      tiles = [];
+      order = [];
+
+      // cria N*N azulejos
+      for(let i=0;i<N*N;i++){
+        const r = Math.floor(i / N);
+        const c = i % N;
+
+        const tile = document.createElement('button'); // botão acessível
+        tile.type = 'button';
+        tile.className = 'jig-tile';
+        tile.setAttribute('aria-label', `Peça ${i+1}`);
+        tile.style.backgroundImage = `url("${IMG_SRC}")`;
+        tile.style.backgroundSize  = `${N*100}% ${N*100}%`;
+        tile.style.backgroundPosition = `${(c/(N-1))*100}% ${(r/(N-1))*100}%`;
+
+        tile.dataset.correct = String(i); // índice correto
+        tiles.push({ el: tile, idx: i });
+        order.push(i);
+
+        tile.addEventListener('click', ()=> onPick(tile));
+        board.appendChild(tile);
+      }
+
+      moves = 0; startTimer();
+    }
+
+    function onPick(tile){
+      const i = Array.from(board.children).indexOf(tile);
+      if (i < 0) return;
+
+      if (!firstPick){
+        firstPick = { i, el: tile };
+        tile.classList.add('selected');
+        return;
+      }
+      if (firstPick.i === i){
+        // mesmo tile -> desmarca
+        tile.classList.remove('selected');
+        firstPick = null;
+        return;
+      }
+
+      // swap DOM (posição na grid = ordem no DOM)
+      const a = Math.min(firstPick.i, i);
+      const b = Math.max(firstPick.i, i);
+      const nodeA = board.children[a];
+      const nodeB = board.children[b];
+
+      // troca usando placeholder
+      const placeholder = document.createElement('div');
+      board.replaceChild(placeholder, nodeA);
+      board.replaceChild(nodeA, nodeB);
+      board.replaceChild(nodeB, placeholder);
+
+      // atualiza ordem
+      const tmp = order[a]; order[a] = order[b]; order[b] = tmp;
+
+      // feedback
+      firstPick.el.classList.remove('selected');
+      firstPick = null;
+      moves++; updateStats();
+
+      checkWin();
+    }
+
+    function shuffle(){
+      // Fisher-Yates em 'order', depois reordena DOM conforme 'order'
+      const arr = order.slice();
+      for(let i=arr.length-1;i>0;i--){
+        const j = (Math.random() * (i+1)) | 0;
+        const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      // evita começar já resolvido
+      if (arr.every((v, i)=> v === i)){
+        const j = (Math.random() * arr.length)|0;
+        const k = (Math.random() * arr.length)|0;
+        [arr[j], arr[k]] = [arr[k], arr[j]];
+      }
+      order = arr;
+
+      // aplica à UI: recria a ordem das children
+      const frag = document.createDocumentFragment();
+      order.forEach(idx => frag.appendChild(tiles[idx].el));
+      board.innerHTML = '';
+      board.appendChild(frag);
+
+      moves = 0; startTimer();
+    }
+
+    function checkWin(){
+      // ganhou se a ordem 0..N*N-1
+      const ok = order.every((v, i)=> v === i);
+      if (!ok) return;
+
+      stopTimer();
+      try{
+        if (window.confetti){
+          confetti({ particleCount: 150, spread: 80, origin:{x:.5,y:.6} });
+          setTimeout(()=> confetti({ particleCount: 100, spread: 60 }), 280);
+        }
+      }catch{}
+    }
+
+    // troca de dificuldade
+    sizeSel.addEventListener('change', async ()=>{
+      N = parseInt(sizeSel.value, 10) || 4;
+      try{
+        await preloadImage(IMG_SRC);
+        buildBoard();
+        setTimeout(()=> shuffle(), 60);
+      }catch(err){
+        console.warn('Falha ao recarregar imagem atual:', IMG_SRC, err);
+      }
+    });
+
+    // embaralhar manual
+    shuffleBtn.addEventListener('click', ()=> shuffle());
+
+    // trocar foto (arquivo local)
+    fileInp.addEventListener('change', async (e)=>{
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      try{
+        await preloadImage(url);
+        IMG_SRC = url;
+        preview.src = url;
+        buildBoard();
+        setTimeout(()=> shuffle(), 60);
+      }catch(err){
+        console.warn('Falha ao carregar arquivo selecionado:', err);
+      }
+    });
+
+    // clique na prévia: também embaralha (gesto rápido)
+    preview.addEventListener('click', ()=> shuffle());
+
+    // permitir SETAR a imagem por JS
+    window.setFiveMonthsPuzzleImage = async function(src){
+      try{
+        await preloadImage(src);
+        IMG_SRC = src;
+        preview.src = src;
+        buildBoard();
+        setTimeout(()=> shuffle(), 60);
+      }catch(err){
+        console.warn('Falha ao carregar imagem informada:', src, err);
+      }
+    };
+
+    // reconstruir ao abrir o <details> (caso esteja fechado no load)
+    document.getElementById('acc-five-months')?.addEventListener('toggle', async ()=>{
+      const acc = document.getElementById('acc-five-months');
+      if (acc && acc.open){
+        try{
+          await preloadImage(IMG_SRC);
+          buildBoard();
+          setTimeout(()=> shuffle(), 60);
+        }catch(err){
+          console.warn('Falha ao (re)carregar imagem ao abrir a seção:', IMG_SRC, err);
+        }
+      }
+    });
+
+    // inicializa com a imagem padrão (pré-carregada)
+    (async ()=>{
+      try{
+        // dica: teste 'images/20250629_202254.jpg' sem "./"
+        IMG_SRC = preview.getAttribute('src') || 'images/20250629_202254.jpg';
+        await preloadImage(IMG_SRC);
+        buildBoard();
+        setTimeout(()=> shuffle(), 60);
+      }catch(err){
+        console.warn('Não consegui carregar a imagem padrão:', IMG_SRC, err);
+      }
+    })();
+  })();
+  </script>
+  <script>
+    (function(){
+      const acc = document.getElementById('acc-five-months');
+      const svg = document.querySelector('#stars-five-months .stars-svg');
+      const group = document.getElementById('stars-group');
+      const poly  = document.getElementById('constellation');
+      const btnReset = document.getElementById('stars-reset');
+      const btnHint  = document.getElementById('stars-hint');
+      const progress = document.getElementById('stars-progress');
+      const msgWrap  = document.getElementById('stars-msg');
+      const typedEl  = document.getElementById('stars-typed');
+
+      if (!svg || !group || !poly || !btnReset || !btnHint || !progress || !msgWrap || !typedEl) return;
+
+      const TARGET_KEYS = ['A','B','C','D','E','F','G']; // 7 estrelas corretas
+      const total = TARGET_KEYS.length;
+      let active = new Set();     // keys ativas
+      let solved = false;
+
+      function updateProgress(){
+        progress.textContent = `${active.size} / ${total} estrelas`;
+      }
+
+      function typewrite(text, el, speed=18){
+        el.textContent = '';
+        el.style.borderRightColor = 'rgba(255,255,255,.6)';
+        let i = 0;
+        const timer = setInterval(()=>{
+          el.textContent = text.slice(0, i++);
+          if (i > text.length){
+            clearInterval(timer);
+            el.style.borderRightColor = 'transparent';
+          }
+        }, speed);
+      }
+
+      function celebrate(){
+        try{
+          if (window.confetti){
+            confetti({ particleCount: 140, spread: 80, origin:{x:.5, y:.6} });
+            setTimeout(()=> confetti({ particleCount: 100, spread: 60 }), 280);
+          }
+        }catch{}
+      }
+
+      function checkSolved(){
+        if (solved) return true;
+        if (active.size !== total) return false;
+        // todos os keys presentes?
+        for (const k of TARGET_KEYS) if (!active.has(k)) return false;
+
+        solved = true;
+        poly.classList.add('show');
+        msgWrap.classList.add('show');
+
+        const MESSAGE =
+    `Te amo mil milhões 💙
+    Você é meu universo particular —
+    onde tudo em mim encontra gravidade.`;
+
+        setTimeout(()=> typewrite(MESSAGE, typedEl, 16), 200);
+        celebrate();
+        return true;
+      }
+
+      function twinkleOnce(node){
+        node.style.transform = 'scale(1.18)';
+        node.style.opacity = '1';
+        setTimeout(()=>{
+          node.style.transform = '';
+          node.style.opacity = '';
+        }, 420);
+      }
+
+      function handleClickStar(g){
+        const key = g.dataset.key;
+        // estrela “isca” (sem key): só pisca fofo
+        if (!key){
+          twinkleOnce(g);
+          return;
+        }
+        // alterna ativa
+        if (active.has(key)){
+          active.delete(key);
+          g.classList.remove('active');
+        } else {
+          active.add(key);
+          g.classList.add('active');
+        }
+        updateProgress();
+        checkSolved();
+      }
+
+      function resetAll(){
+        active.clear();
+        solved = false;
+        group.querySelectorAll('.star').forEach(s=> s.classList.remove('active'));
+        poly.classList.remove('show');
+        msgWrap.classList.remove('show');
+        typedEl.textContent = '';
+        typedEl.style.borderRightColor = 'transparent';
+        updateProgress();
+      }
+
+      // delegação de clique
+      group.addEventListener('click', (e)=>{
+        const starG = e.target.closest('.star');
+        if (!starG) return;
+        handleClickStar(starG);
+      });
+
+      // botões
+      btnReset.addEventListener('click', resetAll);
+      btnHint.addEventListener('click', ()=>{
+        // destaca rapidamente as corretas que ainda faltam
+        const missing = TARGET_KEYS.filter(k=> !active.has(k));
+        if (!missing.length) return;
+        missing.forEach(k=>{
+          const g = group.querySelector(`.star[data-key="${k}"]`);
+          if (g){
+            g.querySelector('.twinkle')?.setAttribute('fill','rgba(173,216,255,.95)');
+            twinkleOnce(g);
+            setTimeout(()=>{
+              g.querySelector('.twinkle')?.setAttribute('fill','rgba(173,216,255,.7)');
+            }, 520);
+          }
+        });
+      });
+
+      // re-inicializa quando a seção abrir (caso carregue fechada)
+      acc?.addEventListener('toggle', ()=>{
+        if (acc.open){
+          // só atualiza o progresso (mantém estado do usuário)
+          updateProgress();
+        }
+      });
+
+      // init
+      updateProgress();
+    })();
+    </script>
 
 </body>
 </html>
