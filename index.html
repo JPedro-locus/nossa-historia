@@ -719,6 +719,51 @@
 
     /* Botão de áudio da seção */
     #sky-audio-btn{ margin:10px 0 0; }
+
+    .five-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap:16px;
+      margin-top:14px;
+    }
+    .five-card{
+      position:relative;
+      cursor:pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .five-card:hover{ transform: translateY(-2px) rotate(var(--rot, -1.5deg)); box-shadow: 0 16px 34px rgba(0,0,0,.32); }
+    .five-card img{ aspect-ratio: 3/4; object-fit: cover; border-radius:6px; }
+    .five-badge{
+      position:absolute; top:8px; left:8px;
+      width:28px; height:28px; border-radius:50%;
+      display:grid; place-items:center;
+      background:#0072ff; color:#fff; font-weight:800;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+    }
+
+    /* lightbox */
+    .five-lightbox{
+      position:fixed; inset:0; display:none;
+      align-items:center; justify-content:center;
+      background:rgba(0,0,0,.7); z-index:3000; padding:18px;
+    }
+    .five-lightbox.show{ display:flex; }
+    .five-lightbox img{
+      max-width:min(92vw, 860px); max-height:70vh; border-radius:12px; box-shadow:0 18px 40px rgba(0,0,0,.35);
+    }
+    .five-meta{
+      margin-left:16px; max-width: 380px; background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.4); border-radius:12px; padding:12px 14px; color:#fff;
+    }
+    .five-close{
+      position:absolute; right:16px; top:16px;
+      background: rgba(0,0,0,.35); color:#fff; border:0;
+      border-radius:10px; padding:8px 12px; font-weight:800; cursor:pointer;
+    }
+    @media (max-width:900px){
+      .five-lightbox{ flex-direction:column; }
+      .five-meta{ margin-left:0; margin-top:12px; width:min(92vw, 640px); }
+    }
   </style>
 </head>
 
@@ -1259,6 +1304,57 @@
           </div>
         </div>
       </section>
+      <section class="tm-section" id="five-frames">
+        <div class="tm-type">5 frames de nós dois 📷</div>
+        <p class="tm-question">Um momento por mês — clique para ver maior 💙</p>
+
+        <div class="five-grid">
+          <!-- 1º mês -->
+          <figure class="five-card polaroid" data-caption="1º mês — Nosso primeiro oi virou rotina. 💙" data-date="06/07/2025" data-src="./images/20250705_220219(1).jpg">
+            <img src="./images/20250705_220219(1).jpg" alt="1º mês">
+            <small>1º mês — primeiro mês</small>
+            <span class="five-badge">1</span>
+          </figure>
+
+          <!-- 2º mês -->
+          <figure class="five-card polaroid" data-caption="2º mês — veio aquela fase que pareciamos uma avião decolando rápido e constante. " data-date="06/08/2025" data-src="./images/20250803_165531.jpg">
+            <img src="./images/20250803_165531.jpg" alt="2º mês">
+            <small>2º mês — avião</small>
+            <span class="five-badge">2</span>
+          </figure>
+
+          <!-- 3º mês -->
+          <figure class="five-card polaroid" data-caption="3º mês — veio a fase do conhecimento . 🎤" data-date="06/09/2025" data-src="./images/20250831_195649.jpg">
+            <img src="./images/20250831_195649.jpg" alt="3º mês">
+            <small>3º mês — conhecimento</small>
+            <span class="five-badge">3</span>
+          </figure>
+
+          <!-- 4º mês -->
+          <figure class="five-card polaroid" data-caption="4º mês — aqui aconteceram altas emoções inclusive no fim desse ciclo conheceu meus pais. ✨" data-date="06/10/2025" data-src="./images/20250906_204300.jpg">
+            <img src="./images/20250906_204300.jpg" alt="4º mês">
+            <small>4º mês — novas conexões</small>
+            <span class="five-badge">4</span>
+          </figure>
+
+          <!-- 5º mês -->
+          <figure class="five-card polaroid" data-caption="5º mês — aqui e um novo começo e quase chegando na metade do nosso primeiro ano. 🧩" data-date="06/11/2025" data-src="./images/puzzle-5m.jpg">
+            <img src="./images/puzzle-5m.jpg" alt="5º mês">
+            <small>5º mês — uma historia sendo escrita/small>
+            <span class="five-badge">5</span>
+          </figure>
+        </div>
+      </section>
+
+      <!-- lightbox -->
+      <div id="five-lightbox" class="five-lightbox" aria-hidden="true">
+        <button class="five-close" aria-label="Fechar">✖</button>
+        <img id="five-lg-img" src="" alt="">
+        <div class="five-meta">
+          <strong id="five-lg-date"></strong>
+          <p id="five-lg-cap"></p>
+        </div>
+      </div>
     </div>
   </details>
 
@@ -2279,6 +2375,40 @@
         if (audio.paused) play();
       }, { once:true });
     })();
+    </script>
+    <script>
+      (function(){
+        const box   = document.getElementById('five-lightbox');
+        const lgImg = document.getElementById('five-lg-img');
+        const lgCap = document.getElementById('five-lg-cap');
+        const lgDt  = document.getElementById('five-lg-date');
+        const close = box?.querySelector('.five-close');
+
+        document.querySelectorAll('#five-frames .five-card').forEach(card=>{
+          card.addEventListener('click', ()=>{
+            const src = card.getAttribute('data-src') || card.querySelector('img')?.src;
+            const cap = card.getAttribute('data-caption') || card.querySelector('small')?.textContent || '';
+            const dt  = card.getAttribute('data-date') || '';
+            if (!src) return;
+
+            lgImg.src = src;
+            lgImg.alt = cap || 'Foto';
+            lgCap.textContent = cap;
+            lgDt.textContent  = dt;
+            box.classList.add('show');
+            box.setAttribute('aria-hidden','false');
+          });
+        });
+
+        function hide(){
+          box.classList.remove('show');
+          box.setAttribute('aria-hidden','true');
+          lgImg.src = '';
+        }
+        close?.addEventListener('click', hide);
+        box?.addEventListener('click', (e)=>{ if(e.target === box) hide(); });
+        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && box.classList.contains('show')) hide(); });
+      })();
     </script>
 
 </body>
