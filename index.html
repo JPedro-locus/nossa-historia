@@ -764,6 +764,286 @@
       .five-lightbox{ flex-direction:column; }
       .five-meta{ margin-left:0; margin-top:12px; width:min(92vw, 640px); }
     }
+    /* ======== 6 MESES – VOTOS (sv-*) ======== */
+    .sv-section{ margin:60px 0; text-align:center; }
+    .sv-type{
+      display:inline-block;
+      border-right: 2px solid rgba(255,255,255,0.8);
+      white-space: nowrap; overflow: hidden;
+      font-size: 1.6em; padding: 6px 4px; min-height: 1.6em;
+    }
+    .sv-question{ margin: 22px 0 14px; font-size: 1.2em; opacity: .95; text-align:center; }
+
+    .sv-wrap{
+      margin: 22px auto 0;
+      width: clamp(360px, 72vw, 720px);
+      max-width: 96%;
+      perspective: 1000px;
+    }
+    .sv-envelope{
+      position: relative; margin:0 auto; width:100%;
+      height: 220px; transition: height .6s ease;
+      cursor: pointer;
+    }
+    .sv-back{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg,#fefefe 0%,#f3f3f3 100%);
+      border-radius:14px; box-shadow:0 14px 34px rgba(0,0,0,.25);
+    }
+    .sv-flap{
+      position:absolute; left:50%; top:0; height:44%; width:92%;
+      transform: translateX(-50%); transform-origin: top;
+      background: linear-gradient(180deg,#fafafa 0%,#eaeaea 70%);
+      border-top-left-radius:14px; border-top-right-radius:14px;
+      clip-path: polygon(0 0,100% 0,50% 100%);
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.14));
+      transition: transform .8s cubic-bezier(.23,1,.32,1);
+      z-index:2;
+    }
+    .sv-flap::after{
+      content:''; position:absolute; left:10%; right:10%; bottom:-1px; height:2px; border-radius:1px;
+      background: linear-gradient(90deg,transparent,rgba(0,0,0,.12),transparent);
+    }
+    .sv-letter{
+      position:absolute; left:50%; transform:translateX(-50%);
+      top:72px; width: calc(100% - 48px); bottom:14px;
+      background:#fff; border-radius:12px; overflow:hidden;
+      display:flex; flex-direction:column;
+      box-shadow:0 10px 24px rgba(0,0,0,.18);
+      height:0;
+      transition:height .8s cubic-bezier(.23,1,.32,1) .2s;
+    }
+    .sv-letter-content{
+      padding:18px 20px; color:#333; text-align:left; line-height:1.6;
+      overflow-y:auto; -webkit-overflow-scrolling:touch;
+    }
+    .sv-title{ font-weight:800; color:#0072ff; margin-bottom:6px; }
+    .sv-typed{
+      border-right:2px solid rgba(0,0,0,.5);
+      white-space:pre-wrap;
+      min-height: 8em;
+    }
+    .sv-actions{ margin-top:12px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .sv-close{
+      position:absolute; right:10px; top:10px; z-index:3;
+      background: rgba(0,0,0,.08); border:0; border-radius:8px;
+      padding:6px 10px; font-weight:700; color:#333; cursor:pointer;
+      display:none;
+    }
+    .sv-close:hover{ background: rgba(0,0,0,.14); }
+
+    /* aberto */
+    .sv-envelope.open{ height: clamp(440px, 66vh, 660px); }
+    .sv-envelope.open .sv-flap{ transform: translateX(-50%) rotateX(-180deg); }
+    .sv-envelope.open .sv-letter{ height: calc(100% - 96px); }
+
+    @media (max-width:480px){
+      .sv-type{ font-size: 1.3em; }
+      .sv-letter{ top:70px; }
+    }
+
+    /* ======== 6 MESES – QUEM SOMOS AGORA (qs-*) ======== */
+    .qs-section{ margin: 42px 0 16px; text-align:center; }
+    .qs-title{ font-size: 1.5em; margin-bottom: 8px; }
+    .qs-sub{ opacity:.92; margin: 0 auto 16px; max-width: 760px; }
+
+    .qs-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .qs-card{
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 14px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .qs-head{
+      display:flex; align-items:center; justify-content: space-between; gap: 10px;
+      padding: 14px 16px;
+      background: rgba(0,0,0,.22);
+    }
+    .qs-person{
+      font-weight: 900;
+      letter-spacing:.5px;
+    }
+    .qs-pill{
+      font-size:.85em;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.45);
+      background: rgba(0,0,0,.22);
+      cursor: pointer;
+      user-select:none;
+      transition: transform .15s ease, background .2s ease;
+    }
+    .qs-pill:hover{ transform: translateY(-1px); background: rgba(0,0,0,.30); }
+    .qs-pill[aria-pressed="true"]{
+      border-color: rgba(255,255,255,.7);
+      background: rgba(0,0,0,.34);
+    }
+
+    .qs-body{ padding: 14px 16px 16px; }
+
+    .qs-block{
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(0,0,0,.16);
+      padding: 12px 12px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .qs-label{
+      display:flex; align-items:center; justify-content: space-between;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .qs-tag{
+      font-size:.82em;
+      opacity:.9;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(0,0,0,.18);
+    }
+
+    .qs-text{
+      line-height: 1.55;
+      opacity: .95;
+    }
+
+    /* “Antes” começa meio oculto (pra ficar dramático) */
+    .qs-card .qs-before .qs-text{
+      filter: blur(7px) saturate(.85);
+      opacity: .75;
+      transition: filter .35s ease, opacity .35s ease;
+    }
+
+    /* quando revela, fica normal */
+    .qs-card.revealed .qs-before .qs-text{
+      filter: blur(0);
+      opacity: 1;
+    }
+
+    /* “Depois” sempre visível */
+    .qs-card .qs-after .qs-text{ opacity: 1; }
+
+    /* botão geral */
+    .qs-actions{
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+      margin-top: 10px;
+    }
+
+    /* ======== 6 MESES – O QUE EU NUNCA TE DISSE (ud-*) ======== */
+    .ud-section{ margin: 42px 0 16px; text-align:center; }
+    .ud-title{ font-size: 1.5em; margin-bottom: 8px; }
+    .ud-sub{ opacity:.92; margin: 0 auto 16px; max-width: 760px; }
+
+    .ud-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .ud-card{
+      position: relative;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 14px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+      overflow: hidden;
+      cursor: pointer;
+      text-align: left;
+      transition: transform .16s ease, background .2s ease, border-color .2s ease;
+    }
+    .ud-card:hover{ transform: translateY(-2px); background: rgba(0,0,0,.24); }
+
+    .ud-head{
+      padding: 14px 16px;
+      background: rgba(0,0,0,.22);
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+    }
+    .ud-kicker{
+      font-weight: 900;
+      letter-spacing:.4px;
+    }
+    .ud-lock{
+      width: 34px; height: 34px;
+      display:grid; place-items:center;
+      border-radius: 10px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.35);
+      font-size: 18px;
+    }
+
+    .ud-body{
+      padding: 14px 16px 16px;
+    }
+
+    .ud-preview{
+      opacity:.92;
+      line-height: 1.55;
+    }
+
+    /* conteúdo escondido com “blur” */
+    .ud-content{
+      margin-top: 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(0,0,0,.16);
+      padding: 12px 12px;
+      filter: blur(10px) saturate(.85);
+      opacity: .70;
+      max-height: 0;
+      overflow: hidden;
+      transition: filter .35s ease, opacity .35s ease, max-height .35s ease;
+    }
+
+    /* aberto */
+    .ud-card.open{
+      border-color: rgba(255,255,255,.65);
+    }
+    .ud-card.open .ud-lock{ background: rgba(0,114,255,.28); border-color: rgba(0,114,255,.65); }
+    .ud-card.open .ud-content{
+      filter: blur(0);
+      opacity: 1;
+      max-height: 420px;
+    }
+
+    /* texto digitado */
+    .ud-typed{
+      border-right: 2px solid rgba(255,255,255,.75);
+      white-space: pre-wrap;
+      line-height: 1.6;
+      min-height: 5.5em;
+    }
+
+    /* final secreto */
+    .ud-final{
+      margin: 16px auto 0;
+      max-width: 820px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(255,255,255,.35);
+      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .35s ease, transform .35s ease;
+    }
+    .ud-final.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .ud-final strong{ color: #bfe0ff; }
+
   </style>
 </head>
 
@@ -1340,7 +1620,7 @@
           <!-- 5º mês -->
           <figure class="five-card polaroid" data-caption="5º mês — aqui e um novo começo e quase chegando na metade do nosso primeiro ano. 🧩" data-date="06/11/2025" data-src="./images/puzzle-5m.jpg">
             <img src="./images/puzzle-5m.jpg" alt="5º mês">
-            <small>5º mês — uma historia sendo escrita/small>
+            <small>5º mês — uma historia sendo escrita </small>
             <span class="five-badge">5</span>
           </figure>
         </div>
@@ -1356,6 +1636,225 @@
         </div>
       </div>
     </div>
+  </details>
+
+  <!-- ====== SEÇÃO 6 MESES (COLAPSÁVEL) ====== -->
+  <details class="accordion" id="acc-six-months">
+    <summary>
+      <span>💍💙 6 meses</span>
+      <span class="chev">▸</span>
+    </summary>
+
+    <div class="accordion-content">
+      <section class="sv-section" id="sv-six-months">
+        <div class="sv-type" id="sv-typewriter"></div>
+        <p class="sv-question">
+          Seis meses… e eu ainda escolho você. Abre a carta dos nossos votos? 💙
+        </p>
+
+        <div class="sv-wrap">
+          <div class="sv-envelope" id="sv-envelope" role="button" aria-label="Abrir carta de 6 meses">
+            <button class="sv-close" id="sv-close" aria-label="Guardar carta">✖ Guardar</button>
+            <div class="sv-back"></div>
+            <div class="sv-flap"></div>
+
+            <div class="sv-letter">
+              <div class="sv-letter-content">
+                <div class="sv-title">Nossos votos de 6 meses ✨</div>
+                <div id="sv-typed" class="sv-typed"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sv-actions">
+            <button class="tm-btn" id="sv-open">Abrir carta ✨</button>
+            <button class="tm-btn" id="sv-replay">Reescrever ✍️</button>
+          </div>
+
+          <p style="margin-top:10px; opacity:.9;">
+            Toque no envelope ou use o botão. 💙
+          </p>
+        </div>
+      </section>
+    </div>
+    <section class="qs-section" id="qs-six-months">
+      <h2 class="qs-title">Quem somos agora (antes × depois) 💙</h2>
+      <p class="qs-sub">
+        Seis meses parecem pouco no calendário… mas mudaram muita coisa dentro da gente.
+        Aqui é um retrato simples do que eu era, do que eu virei — e do que você despertou em mim.
+      </p>
+
+      <div class="qs-actions">
+        <button class="tm-btn" id="qs-reveal-all">Revelar “antes” de tudo ✨</button>
+        <button class="tm-btn" id="qs-hide-all">Esconder de novo 🙈</button>
+      </div>
+
+      <div class="qs-grid">
+        <!-- EU -->
+        <article class="qs-card" id="qs-me">
+          <div class="qs-head">
+            <div class="qs-person">EU</div>
+            <button class="qs-pill" id="qs-toggle-me" aria-pressed="false">Revelar antes</button>
+          </div>
+
+          <div class="qs-body">
+            <div class="qs-block qs-before">
+              <div class="qs-label">
+                <span>Antes de você</span>
+                <span class="qs-tag">antes</span>
+              </div>
+              <div class="qs-text" id="qs-me-before">
+                Eu andava no automático, rindo por fora e cansando por dentro.
+                Eu parecia forte, mas tinha dias que eu só queria alguém que me entendesse sem exigir explicação.
+                Eu era “eu contra o mundo”, e isso pesa.
+              </div>
+            </div>
+
+            <div class="qs-block qs-after">
+              <div class="qs-label">
+                <span>Depois de você</span>
+                <span class="qs-tag">depois</span>
+              </div>
+              <div class="qs-text" id="qs-me-after">
+                Eu aprendi a voltar pra casa com o coração mais leve.
+                Eu tenho vontade de construir, de planejar, de ser melhor — porque agora faz sentido.
+                Você virou meu lugar seguro: onde eu descanso, respiro e lembro quem eu sou.
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- VOCÊ -->
+        <article class="qs-card" id="qs-you">
+          <div class="qs-head">
+            <div class="qs-person">VOCÊ</div>
+            <button class="qs-pill" id="qs-toggle-you" aria-pressed="false">Revelar antes</button>
+          </div>
+
+          <div class="qs-body">
+            <div class="qs-block qs-before">
+              <div class="qs-label">
+                <span>Antes de nós</span>
+                <span class="qs-tag">antes</span>
+              </div>
+              <div class="qs-text" id="qs-you-before">
+                Você carregava o mundo no peito e fingia que não doía.
+                Você se protegia com silêncio, com força, com “tá tudo bem”.
+                Você parecia distante… mas era só cuidado com o próprio coração.
+              </div>
+            </div>
+
+            <div class="qs-block qs-after">
+              <div class="qs-label">
+                <span>Depois de nós</span>
+                <span class="qs-tag">depois</span>
+              </div>
+              <div class="qs-text" id="qs-you-after">
+                Você ganhou um lugar onde não precisa ser dura o tempo todo.
+                Você pode ser você — com calma, com verdade, do seu jeito.
+                E mesmo quando o mundo aperta, eu vejo: você ainda escolhe amar.
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="tm-question" style="margin-top:14px;">
+        E se alguém perguntar o que mudou… eu vou dizer: <b>mudou tudo.</b> 💙
+      </p>
+    </section>
+    <section class="ud-section" id="ud-six-months">
+      <h2 class="ud-title">O que eu nunca te disse 🕯️</h2>
+      <p class="ud-sub">
+        Tem coisas que não viram conversa… mas moram aqui dentro.
+        Abre um por vez — só nós dois entendendo o nosso idioma. 💙
+      </p>
+
+      <div class="ud-grid" id="ud-grid">
+        <article class="ud-card" data-idx="0" role="button" aria-label="Abrir mensagem 1">
+          <div class="ud-head">
+            <div class="ud-kicker">1 — Quando tive medo</div>
+            <div class="ud-lock">🔒</div>
+          </div>
+          <div class="ud-body">
+            <div class="ud-preview">“Nem todo medo é fraqueza…”</div>
+            <div class="ud-content">
+              <div class="ud-typed" id="ud-typed-0"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="ud-card" data-idx="1" role="button" aria-label="Abrir mensagem 2">
+          <div class="ud-head">
+            <div class="ud-kicker">2 — Quando eu quase desisti</div>
+            <div class="ud-lock">🔒</div>
+          </div>
+          <div class="ud-body">
+            <div class="ud-preview">“Teve um dia que eu…”</div>
+            <div class="ud-content">
+              <div class="ud-typed" id="ud-typed-1"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="ud-card" data-idx="2" role="button" aria-label="Abrir mensagem 3">
+          <div class="ud-head">
+            <div class="ud-kicker">3 — Quando percebi que era você</div>
+            <div class="ud-lock">🔒</div>
+          </div>
+          <div class="ud-body">
+            <div class="ud-preview">“Não foi num momento grande…”</div>
+            <div class="ud-content">
+              <div class="ud-typed" id="ud-typed-2"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="ud-card" data-idx="3" role="button" aria-label="Abrir mensagem 4">
+          <div class="ud-head">
+            <div class="ud-kicker">4 — Quando você me salvou sem saber</div>
+            <div class="ud-lock">🔒</div>
+          </div>
+          <div class="ud-body">
+            <div class="ud-preview">“Você fez algo simples…”</div>
+            <div class="ud-content">
+              <div class="ud-typed" id="ud-typed-3"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="ud-card" data-idx="4" role="button" aria-label="Abrir mensagem 5">
+          <div class="ud-head">
+            <div class="ud-kicker">5 — Quando pensei no futuro</div>
+            <div class="ud-lock">🔒</div>
+          </div>
+          <div class="ud-body">
+            <div class="ud-preview">“Foi a primeira vez que…”</div>
+            <div class="ud-content">
+              <div class="ud-typed" id="ud-typed-4"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="ud-card" data-idx="5" role="button" aria-label="Abrir mensagem 6">
+          <div class="ud-head">
+            <div class="ud-kicker">6 — O que eu nunca te disse</div>
+            <div class="ud-lock">🔒</div>
+          </div>
+          <div class="ud-body">
+            <div class="ud-preview">“Mesmo quando a gente…”</div>
+            <div class="ud-content">
+              <div class="ud-typed" id="ud-typed-5"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="ud-final" id="ud-final">
+        <strong>Se depois de tudo isso você ainda está aqui…</strong>
+        então é amor. 💙
+      </div>
+    </section>
   </details>
 
 
@@ -2410,6 +2909,340 @@
         document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && box.classList.contains('show')) hide(); });
       })();
     </script>
+    <script>
+      /* ======== 6 MESES – VOTOS (sv-*) ======== */
+      (function(){
+        const acc   = document.getElementById('acc-six-months');
+        const typeEl= document.getElementById('sv-typewriter');
+        const env   = document.getElementById('sv-envelope');
+        const openBtn = document.getElementById('sv-open');
+        const replayBtn = document.getElementById('sv-replay');
+        const typed = document.getElementById('sv-typed');
+        const closeBtn = document.getElementById('sv-close');
+
+        if(!acc || !typeEl || !env || !openBtn || !replayBtn || !typed || !closeBtn) return;
+
+        // Type do título da seção
+        (function typeTitle(){
+          const text = "Seis meses de nós — e ainda é só o começo 💙";
+          let i = 0;
+          function t(){
+            if(i <= text.length){
+              typeEl.textContent = text.slice(0, i++);
+              setTimeout(t, 45);
+            }
+          }
+          // só inicia quando abrir a aba
+          acc.addEventListener('toggle', () => {
+            if(acc.open && !typeEl.dataset.done){
+              typeEl.dataset.done = "1";
+              t();
+            }
+          });
+        })();
+
+        const VOWS = [
+          "Eu prometo te escolher nos dias fáceis e, principalmente, nos difíceis.",
+          "Eu prometo te ouvir de verdade, sem pressa, sem orgulho.",
+          "Eu prometo ser abrigo — e não tempestade.",
+          "Eu prometo cuidar do que é nosso, mesmo quando a vida cansar.",
+          "Eu prometo te fazer rir, te lembrar do quanto você é amada e te admirar sempre.",
+          "Eu prometo crescer contigo — sem perder a leveza de ser nós dois."
+        ];
+
+        const MESSAGE =
+    `Amor,
+
+    hoje a gente completa 6 meses… e é doido como, mesmo com o tempo passando,
+    eu sinto que meu coração só confirma o que já sabia: eu quero você.
+
+    Então aqui vão os nossos votos — simples, verdadeiros e do tamanho do que eu sinto:
+
+    1) ${VOWS[0]}
+    2) ${VOWS[1]}
+    3) ${VOWS[2]}
+    4) ${VOWS[3]}
+    5) ${VOWS[4]}
+    6) ${VOWS[5]}
+
+    Seis meses não são “só” seis meses…
+    são escolhas repetidas, cuidado, presença e amor construído.
+
+    Eu te amo mil milhões. 💙`;
+
+        let isOpen = false;
+        let timer = null;
+
+        function confettiSoft(){
+          try{
+            if(window.confetti){
+              confetti({ particleCount: 80, spread: 70, origin:{x:.5,y:.55} });
+              setTimeout(()=> confetti({ particleCount: 50, spread: 55, origin:{x:.5,y:.6} }), 260);
+            }
+          }catch{}
+        }
+
+        function typewrite(text, el, speed=14){
+          clearInterval(timer);
+          el.textContent = "";
+          el.style.borderRightColor = 'rgba(0,0,0,.5)';
+          let i = 0;
+          timer = setInterval(()=>{
+            el.textContent = text.slice(0, i++);
+            if(i > text.length){
+              clearInterval(timer);
+              timer = null;
+              el.style.borderRightColor = 'transparent';
+            }
+          }, speed);
+        }
+
+        function openLetter(rewrite=false){
+          if(isOpen && !rewrite) return;
+          isOpen = true;
+          env.classList.add('open');
+          openBtn.textContent = 'Guardar carta ✉️';
+          closeBtn.style.display = '';
+          if(rewrite || !typed.textContent.trim()){
+            setTimeout(()=> typewrite(MESSAGE, typed, 14), 520);
+          }
+          confettiSoft();
+        }
+
+        function closeLetter(){
+          isOpen = false;
+          env.classList.remove('open');
+          typed.style.borderRightColor = 'transparent';
+          openBtn.textContent = 'Abrir carta ✨';
+          closeBtn.style.display = 'none';
+          clearInterval(timer); timer = null;
+        }
+
+        // botões
+        openBtn.addEventListener('click', ()=> isOpen ? closeLetter() : openLetter(false));
+        replayBtn.addEventListener('click', ()=> openLetter(true));
+        closeBtn.addEventListener('click', (e)=>{ e.stopPropagation(); closeLetter(); });
+
+        // clique no envelope abre
+        env.addEventListener('click', ()=> openLetter(false));
+
+        // ao abrir a aba, monta bonitinho (opcional)
+        acc.addEventListener('toggle', ()=>{
+          if(acc.open){
+            // se quiser abrir automaticamente ao abrir a aba, descomente:
+            // setTimeout(()=> openLetter(false), 250);
+          } else {
+            closeLetter();
+          }
+        });
+      })();
+    </script>
+    <script>
+      /* ======== 6 MESES – QUEM SOMOS AGORA (qs-*) ======== */
+      (function(){
+        const meCard  = document.getElementById('qs-me');
+        const youCard = document.getElementById('qs-you');
+        const tMe     = document.getElementById('qs-toggle-me');
+        const tYou    = document.getElementById('qs-toggle-you');
+        const revealAll = document.getElementById('qs-reveal-all');
+        const hideAll   = document.getElementById('qs-hide-all');
+
+        if(!meCard || !youCard || !tMe || !tYou || !revealAll || !hideAll) return;
+
+        function confettiSoft(){
+          try{
+            if(window.confetti){
+              confetti({ particleCount: 60, spread: 55, origin:{x:.5,y:.6} });
+              setTimeout(()=> confetti({ particleCount: 35, spread: 45, origin:{x:.5,y:.65} }), 220);
+            }
+          }catch{}
+        }
+
+        function setRevealed(card, btn, on){
+          card.classList.toggle('revealed', on);
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          btn.textContent = on ? 'Esconder antes' : 'Revelar antes';
+        }
+
+        tMe.addEventListener('click', ()=>{
+          const on = !meCard.classList.contains('revealed');
+          setRevealed(meCard, tMe, on);
+          if(on) confettiSoft();
+        });
+
+        tYou.addEventListener('click', ()=>{
+          const on = !youCard.classList.contains('revealed');
+          setRevealed(youCard, tYou, on);
+          if(on) confettiSoft();
+        });
+
+        revealAll.addEventListener('click', ()=>{
+          setRevealed(meCard, tMe, true);
+          setRevealed(youCard, tYou, true);
+          confettiSoft();
+        });
+
+        hideAll.addEventListener('click', ()=>{
+          setRevealed(meCard, tMe, false);
+          setRevealed(youCard, tYou, false);
+        });
+      })();
+    </script>
+    <script>
+      /* ======== 6 MESES – O QUE EU NUNCA TE DISSE (ud-*) ======== */
+      (function(){
+        const grid = document.getElementById('ud-grid');
+        const finalBox = document.getElementById('ud-final');
+        if(!grid || !finalBox) return;
+
+        const CARDS = Array.from(grid.querySelectorAll('.ud-card'));
+
+        // textos (edite à vontade)
+        const TEXTS = [
+      `Eu tive medo de me apegar.
+      Porque quando é de verdade, a queda também assusta.
+
+      Mas aí você apareceu com um tipo de paz que eu não sabia pedir —
+      e eu percebi que vale a pena arriscar quando o destino tem o teu nome.`,
+
+      `Teve um dia que eu pensei em recuar.
+      Por que parecia que estava apenas sendo enrolado e que você não tinha a mesma intesidade
+      em relação ao sentimentos que nutriamos um pelo outro.
+
+      Mas ai você mudou: se tornou a pessoa e a luz da minha vida que é hoje e bem não poderia ter ninguem melhor ao meu lado que o meu maior amor.`,
+
+      `Não foi num momento grande.
+      Foi num detalhe bobo.
+
+      Foi quando eu me vi contando qualquer coisa do meu dia
+      e percebi que o meu coração tava em casa
+      só por estar perto de você.`,
+
+      `Você me salvou sem saber.
+      Num dia em que o mundo tava pesado,
+      você fez algo simples — e mudou tudo.
+
+      Você não resolveu a vida… você me deu força.
+      E isso é amor de verdade.`,
+
+      `Foi a primeira vez que o amanhã não me assustou.
+      Porque quando eu penso no futuro,
+      eu não penso em coisas… eu penso em nós.
+
+      E isso me dá coragem.`,
+
+      `Mesmo quando a gente discute,
+      eu nunca penso em ir embora.
+
+      Porque no fundo eu sei:
+      a gente não é perfeito — mas a gente é real.
+      E real é raro.`
+        ];
+
+        // persistência (pra não perder ao recarregar)
+        const LS_KEY = "loveUnsaid_v1";
+        const state = (()=>{ try{ return JSON.parse(localStorage.getItem(LS_KEY)) || {}; }catch{ return {}; } })();
+        if(!Array.isArray(state.opened)) state.opened = Array(6).fill(false);
+
+        function save(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+        let typingTimers = Array(6).fill(null);
+
+        function confettiSoft(){
+          try{
+            if(window.confetti){
+              confetti({ particleCount: 55, spread: 55, origin:{x:.5,y:.62} });
+              setTimeout(()=> confetti({ particleCount: 35, spread: 45, origin:{x:.5,y:.66} }), 220);
+            }
+          }catch{}
+        }
+
+        function typewrite(idx, el, text, speed=16){
+          if(typingTimers[idx]){ clearInterval(typingTimers[idx]); typingTimers[idx]=null; }
+          el.textContent = "";
+          el.style.borderRightColor = 'rgba(255,255,255,.75)';
+          let i = 0;
+          typingTimers[idx] = setInterval(()=>{
+            el.textContent = text.slice(0, i++);
+            if(i > text.length){
+              clearInterval(typingTimers[idx]);
+              typingTimers[idx] = null;
+              el.style.borderRightColor = 'transparent';
+            }
+          }, speed);
+        }
+
+        function closeAllExcept(exceptIdx){
+          CARDS.forEach((card)=>{
+            const idx = +card.dataset.idx;
+            if(idx !== exceptIdx) card.classList.remove('open');
+          });
+        }
+
+        function checkAllOpened(){
+          const all = state.opened.every(Boolean);
+          if(all){
+            finalBox.classList.add('show');
+            // confetti só uma vez (marca no state)
+            if(!state.finalShown){
+              state.finalShown = true;
+              save();
+              confettiSoft();
+            }
+          }
+        }
+
+        function openCard(card){
+          const idx = +card.dataset.idx;
+          closeAllExcept(idx);
+
+          const isOpen = card.classList.contains('open');
+          if(isOpen){
+            card.classList.remove('open');
+            return;
+          }
+
+          card.classList.add('open');
+
+          // marca como aberto (persistente)
+          state.opened[idx] = true;
+          save();
+
+          // troca lock
+          const lock = card.querySelector('.ud-lock');
+          if(lock) lock.textContent = "🔓";
+
+          // digita (se ainda não digitou)
+          const typedEl = document.getElementById(`ud-typed-${idx}`);
+          if(typedEl && !typedEl.textContent.trim()){
+            typewrite(idx, typedEl, TEXTS[idx], 14);
+          }
+
+          // micro confetti
+          confettiSoft();
+          checkAllOpened();
+        }
+
+        // click
+        CARDS.forEach(card=>{
+          card.addEventListener('click', ()=> openCard(card));
+        });
+
+        // restaura locks (se já abriu antes)
+        CARDS.forEach(card=>{
+          const idx = +card.dataset.idx;
+          if(state.opened[idx]){
+            const lock = card.querySelector('.ud-lock');
+            if(lock) lock.textContent = "🔓";
+          }
+        });
+
+        // restaura final se já completou
+        if(state.opened.every(Boolean)){
+          finalBox.classList.add('show');
+        }
+      })();
+      </script>
 
 </body>
 </html>
