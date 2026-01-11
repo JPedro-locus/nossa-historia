@@ -1044,6 +1044,347 @@
     }
     .ud-final strong{ color: #bfe0ff; }
 
+    /* ====== ESTILOS (pode mover pro seu CSS) ====== */
+    .month-section{
+      max-width: 920px;
+      margin: 48px auto;
+      padding: 28px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(10px);
+    }
+
+    .month-header h2{
+      margin: 0 0 6px;
+      font-size: 1.6rem;
+      line-height: 1.2;
+    }
+
+    .month-subtitle{
+      margin: 0 0 18px;
+      opacity: .9;
+    }
+
+    .month-text{
+      padding: 16px 16px 6px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      margin-bottom: 22px;
+    }
+
+    .month-text p{
+      margin: 0 0 10px;
+      line-height: 1.55;
+    }
+
+    .interactive-block{
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .block-title{
+      display:flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .block-title h3{
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .hint{ opacity: .8; font-size: .92rem; }
+
+    /* Accordion */
+    .accordion{ display:flex; flex-direction:column; gap: 10px; }
+    .acc-item{
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+    }
+
+    .acc-summary{
+      cursor:pointer;
+      padding: 12px 14px;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      user-select: none;
+    }
+    .acc-summary::-webkit-details-marker{ display:none; }
+
+    .acc-title{ font-weight: 600; }
+    .acc-content{
+      padding: 0 14px 12px 36px;
+      opacity: .95;
+    }
+    .acc-content p{ margin: 10px 0 0; line-height:1.5; }
+
+    .badge{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      display:inline-block;
+    }
+    .badge-blue{ background: #4ea8ff; }
+    .badge-yellow{ background: #ffd166; }
+    .badge-heart{ background: #ff4d6d; }
+
+    /* Buttons */
+    .btn{
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: inherit;
+      cursor: pointer;
+    }
+    .btn:hover{ background: rgba(255,255,255,.12); }
+
+    .btn-secondary{ background: rgba(78,168,255,.14); }
+    .btn-secondary:hover{ background: rgba(78,168,255,.20); }
+
+    .btn-ghost{
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,.06); }
+
+    /* Flip cards */
+    .lesson-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (max-width: 720px){
+      .lesson-grid{ grid-template-columns: 1fr; }
+      .block-title{ flex-direction:column; align-items:flex-start; }
+    }
+
+    .flip-card{
+      position: relative;
+      min-height: 88px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      cursor: pointer;
+      padding: 14px;
+      text-align: left;
+      color: inherit;
+      overflow:hidden;
+    }
+
+    .flip-front{
+      display:block;
+      font-weight: 700;
+      font-size: 1.02rem;
+    }
+    .flip-back{
+      display:block;
+      margin-top: 8px;
+      opacity: .92;
+      line-height: 1.45;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .25s ease;
+    }
+
+    .flip-card[data-open="true"] .flip-back{
+      max-height: 120px;
+    }
+
+    /* Checklist */
+    .checklist{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.03);
+    }
+
+    .checklist-title{
+      margin: 0 0 10px;
+      opacity: .95;
+    }
+
+    .check-item{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      margin: 10px 0;
+      cursor:pointer;
+      user-select:none;
+    }
+    .check-item input{ transform: scale(1.1); }
+
+    .check-actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .output{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
+      display:none;
+    }
+    .output.show{ display:block; }
+
+    .trail{
+      max-width: 920px;
+      margin: 28px auto 60px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+
+    .trail-header h2{
+      margin: 0 0 6px;
+      font-size: 1.35rem;
+    }
+    .trail-subtitle{ margin: 0 0 10px; opacity: .9; }
+
+    .trail-meta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 8px 0 14px;
+    }
+    .pill{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-size: .92rem;
+    }
+
+    .trail-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 12px;
+    }
+
+    @media (max-width: 720px){
+      .trail-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    .trail-card{
+      position: relative;
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .trail-img{
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      display:block;
+    }
+
+    .trail-label{
+      display:block;
+      padding: 10px 12px;
+      font-weight: 600;
+    }
+
+    .trail-badge{
+      position:absolute;
+      top: 10px;
+      left: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.35);
+    }
+
+    /* Estado bloqueado */
+    .trail-card.locked{
+      cursor: not-allowed;
+      opacity: .85;
+    }
+    .trail-card.locked .trail-img{
+      filter: blur(10px) grayscale(1);
+      transform: scale(1.03);
+    }
+    .trail-card.locked::after{
+      content: "🔒 Bloqueado";
+      position:absolute;
+      inset: 0;
+      display:grid;
+      place-items:center;
+      font-weight: 800;
+      letter-spacing: .2px;
+      background: rgba(0,0,0,.35);
+    }
+
+    /* Modal */
+    .trail-modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      padding: 18px;
+      z-index: 9999;
+    }
+    .trail-modal.show{ display:grid; place-items:center; }
+
+    .trail-modal-content{
+      position: relative;
+      width: min(880px, 100%);
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+    }
+    .trail-modal-content img{
+      width:100%;
+      max-height: 72vh;
+      object-fit: contain;
+      background: rgba(0,0,0,.35);
+      display:block;
+    }
+    .trail-modal-content p{
+      margin: 0;
+      padding: 12px 14px;
+      opacity: .95;
+    }
+    .trail-modal-close{
+      position:absolute;
+      top: 10px;
+      right: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: inherit;
+      cursor: pointer;
+    }
+
   </style>
 </head>
 
@@ -1857,6 +2198,254 @@
     </section>
   </details>
 
+  <!-- ====== SEÇÃO 7 MESES (COLAPSÁVEL) ====== -->
+  <details class="accordion" id="acc-seven-months">
+    <summary>
+      <span>🌊💙 7 meses</span>
+      <span class="chev">▸</span>
+    </summary>
+
+    <div class="accordion-body">
+      <section id="mes-7" class="month-section" aria-labelledby="mes-7-title">
+        <header class="month-header">
+          <h2 id="mes-7-title">🌊💙 7 meses — aprender a amar também é aprender a adaptar</h2>
+          <p class="month-subtitle">
+            Um mês de altos e baixos, mudanças e readaptações — e ainda assim, nós.
+          </p>
+        </header>
+
+        <!-- Texto principal -->
+        <article class="month-text" aria-label="Texto principal do sétimo mês">
+          <p>Sete meses não foram só sorrisos.</p>
+          <p>Foram dias leves, dias intensos e dias que pediram coragem.</p>
+          <p>
+            A primeira metade veio suave, cheia de certezas. Depois, vieram mudanças,
+            desafios e a necessidade de nos adaptarmos mais uma vez.
+          </p>
+          <p>
+            E foi aí que eu entendi: amar não é só quando tudo vai bem, amar é escolher
+            ficar quando tudo pede ajuste.
+          </p>
+          <p>
+            Relacionamento é isso — uma construção viva, feita de diálogo, paciência e
+            vontade de ser feliz juntos.
+          </p>
+          <p>E mesmo nos altos e baixos, eu continuo escolhendo você.</p>
+        </article>
+
+        <!-- Interação 1 -->
+        <section class="interactive-block" aria-label="Interação: Linha do nosso mês">
+          <div class="block-title">
+            <h3>🔹 A linha do nosso mês</h3>
+            <span class="hint">Clique para abrir cada parte</span>
+          </div>
+
+          <div class="month-accordion" role="list">
+            <details class="acc-item" open>
+              <summary class="acc-summary">
+                <span class="badge badge-blue" aria-hidden="true"></span>
+                <span class="acc-title">Antes do dia 22</span>
+              </summary>
+              <div class="acc-content">
+                <p>Foi leve. Foi riso fácil. Foi certeza.</p>
+                <p>A gente estava em sintonia, vivendo o que parecia ser só o começo de algo muito bom.</p>
+              </div>
+            </details>
+
+            <details class="acc-item">
+              <summary class="acc-summary">
+                <span class="badge badge-yellow" aria-hidden="true"></span>
+                <span class="acc-title">Depois do dia 22</span>
+              </summary>
+              <div class="acc-content">
+                <p>Vieram os desafios. Vieram mudanças que não pediram licença.</p>
+                <p>
+                  Tivemos que reaprender, reajustar, respirar fundo e entender que nem
+                  todo amor cresce no conforto, entender a lidar com frustrações, anseios e dúvidas.
+                </p>
+              </div>
+            </details>
+
+            <details class="acc-item">
+              <summary class="acc-summary">
+                <span class="badge badge-heart" aria-hidden="true"></span>
+                <span class="acc-title">O que ficou</span>
+              </summary>
+              <div class="acc-content">
+                <p>Ficou a escolha. Ficou o respeito.</p>
+                <p>
+                  Ficou a vontade de continuar — não porque é fácil, mas porque é verdadeiro, até por que
+                  tudo aquilo que vem fácil, vai fácil. Não estamos hoje aqui por que escolhemos o caminho fácil,
+                  estamos por que acreditamos em algo maior que eu ou você. Acreditamos no nós.
+                </p>
+              </div>
+            </details>
+          </div>
+
+          <button class="btn" type="button" data-action="navegar">Seguir navegando 🌊</button>
+        </section>
+
+        <!-- Interação 2 -->
+        <section class="interactive-block" aria-label="Interação: O que esse mês nos ensinou">
+          <div class="block-title">
+            <h3>🔹 O que esse mês nos ensinou</h3>
+            <span class="hint">Clique nos cards para revelar</span>
+          </div>
+
+          <div class="lesson-grid" role="list">
+            <button class="flip-card" type="button" aria-pressed="false">
+              <span class="flip-front">🧩 Conversa</span>
+              <span class="flip-back">Aprendemos a conversar melhor, sem fugir do difícil.</span>
+            </button>
+
+            <button class="flip-card" type="button" aria-pressed="false">
+              <span class="flip-front">🌱 Crescimento</span>
+              <span class="flip-back">Nem todo dia é leve — mas todo dia pode fortalecer.</span>
+            </button>
+
+            <button class="flip-card" type="button" aria-pressed="false">
+              <span class="flip-front">🫶 Escolha</span>
+              <span class="flip-back">A gente escolheu ficar e se ajustar, juntos.</span>
+            </button>
+
+            <button class="flip-card" type="button" aria-pressed="false">
+              <span class="flip-front">🧭 Respeito</span>
+              <span class="flip-back">Respeitar tempo, limite e sentimento também é amor.</span>
+            </button>
+          </div>
+
+          <div class="checklist">
+            <p class="checklist-title">Marca o que você sente que foi verdade nesse mês:</p>
+
+            <label class="check-item">
+              <input type="checkbox" value="A gente se ouviu mais" />
+              <span>A gente se ouviu mais</span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" value="A gente se adaptou" />
+              <span>A gente se adaptou</span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" value="A gente ficou junto mesmo no caos" />
+              <span>A gente ficou junto mesmo no caos</span>
+            </label>
+
+            <label class="check-item">
+              <input type="checkbox" value="A gente saiu mais forte" />
+              <span>A gente saiu mais forte</span>
+            </label>
+
+            <div class="check-actions">
+              <button class="btn btn-secondary" type="button" data-action="resumo">Gerar resumo 💙</button>
+              <button class="btn btn-ghost" type="button" data-action="limpar">Limpar</button>
+            </div>
+
+            <div class="output" data-output="resumo" aria-live="polite"></div>
+          </div>
+        </section>
+      </section>
+    </div>
+  </details>
+  </section>
+
+  <section id="photo-trail" class="trail" aria-labelledby="trail-title">
+    <header class="trail-header">
+      <h2 id="trail-title">📸 Trilha até 1 ano</h2>
+      <p class="trail-subtitle">
+        Cada mês, uma lembrança. As próximas fotos liberam com o tempo… até completar 1 ano. 💙
+      </p>
+      <div class="trail-meta">
+        <span class="pill" id="trail-progress">Carregando…</span>
+        <span class="pill" id="trail-countdown">Carregando…</span>
+      </div>
+    </header>
+
+    <div class="trail-grid" id="trail-grid" role="list" aria-label="Trilha de fotos por mês">
+      <!-- 12 slots -->
+      <button class="trail-card" data-month="1" type="button">
+        <span class="trail-badge">1</span>
+        <img class="trail-img" src="images/e19b8a8bf6703b0869eb70a82231cfcf.jpg" alt="17/06/2025">
+        <span class="trail-label">Mês 1</span>
+      </button>
+
+      <button class="trail-card" data-month="2" type="button">
+        <span class="trail-badge">2</span>
+        <img class="trail-img" src="images/20250705_220219(1).jpg" alt="">
+        <span class="trail-label">Mês 2</span>
+      </button>
+
+      <button class="trail-card" data-month="3" type="button">
+        <span class="trail-badge">3</span>
+        <img class="trail-img" src="images/20250803_165531.jpg" alt="03/08/2025">
+        <span class="trail-label">Mês 3</span>
+      </button>
+
+      <button class="trail-card" data-month="4" type="button">
+        <span class="trail-badge">4</span>
+        <img class="trail-img" src="images/20250906_204300.jpg" alt="Foto do mês 4">
+        <span class="trail-label">Mês 4</span>
+      </button>
+
+      <button class="trail-card" data-month="5" type="button">
+        <span class="trail-badge">5</span>
+        <img class="trail-img" src="images/20251106_194639.jpg" alt="Foto do mês 5">
+        <span class="trail-label">Mês 5</span>
+      </button>
+
+      <button class="trail-card" data-month="6" type="button">
+        <span class="trail-badge">6</span>
+        <img class="trail-img" src="images/20251205_200100.jpg" alt="Foto do mês 6">
+        <span class="trail-label">Mês 6</span>
+      </button>
+
+      <button class="trail-card" data-month="7" type="button">
+        <span class="trail-badge">7</span>
+        <img class="trail-img" src="images/20251231_214630(1).jpg" alt="Foto do mês 7">
+        <span class="trail-label">Mês 7</span>
+      </button>
+
+      <button class="trail-card" data-month="8" type="button">
+        <span class="trail-badge">8</span>
+        <img class="trail-img" src="assets/photos/08.jpg" alt="Foto do mês 8">
+        <span class="trail-label">Mês 8</span>
+      </button>
+
+      <button class="trail-card" data-month="9" type="button">
+        <span class="trail-badge">9</span>
+        <img class="trail-img" src="assets/photos/09.jpg" alt="Foto do mês 9">
+        <span class="trail-label">Mês 9</span>
+      </button>
+
+      <button class="trail-card" data-month="10" type="button">
+        <span class="trail-badge">10</span>
+        <img class="trail-img" src="assets/photos/10.jpg" alt="Foto do mês 10">
+        <span class="trail-label">Mês 10</span>
+      </button>
+
+      <button class="trail-card" data-month="11" type="button">
+        <span class="trail-badge">11</span>
+        <img class="trail-img" src="assets/photos/11.jpg" alt="Foto do mês 11">
+        <span class="trail-label">Mês 11</span>
+      </button>
+
+      <button class="trail-card" data-month="12" type="button">
+        <span class="trail-badge">12</span>
+        <img class="trail-img" src="assets/photos/12.jpg" alt="Foto do mês 12">
+        <span class="trail-label">1 ano 🎉</span>
+      </button>
+    </div>
+
+    <!-- Modal simples pra ver a foto grande -->
+    <div class="trail-modal" id="trail-modal" aria-hidden="true">
+      <div class="trail-modal-content" role="dialog" aria-modal="true" aria-label="Visualização da foto">
+        <button class="trail-modal-close" id="trail-close" type="button">✕</button>
+        <img id="trail-modal-img" alt="">
+        <p id="trail-modal-caption"></p>
+      </div>
+    </div>
+  </section>
 
   <!-- confetti lib -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -3241,6 +3830,162 @@
         if(state.opened.every(Boolean)){
           finalBox.classList.add('show');
         }
+      })();
+    </script>
+    
+    <script>
+    (() => {
+      const root = document.querySelector("#mes-7");
+      if (!root) return;
+
+      // Flip cards
+      root.querySelectorAll(".flip-card").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const isOpen = btn.getAttribute("data-open") === "true";
+          btn.setAttribute("data-open", String(!isOpen));
+          btn.setAttribute("aria-pressed", String(!isOpen));
+        });
+      });
+
+      // Botões (event delegation)
+      root.addEventListener("click", (e) => {
+        const target = e.target.closest("[data-action]");
+        if (!target) return;
+
+        const action = target.getAttribute("data-action");
+
+        if (action === "navegar") {
+          const next = document.querySelector("#mes-8, [data-next-section]");
+          if (next) next.scrollIntoView({ behavior: "smooth", block: "start" });
+          else root.animate(
+            [{ transform: "scale(1)" }, { transform: "scale(1.01)" }, { transform: "scale(1)" }],
+            { duration: 380, easing: "ease-out" }
+          );
+          return;
+        }
+
+        const output = root.querySelector('[data-output="resumo"]');
+
+        if (action === "resumo") {
+          const checks = Array.from(root.querySelectorAll('.check-item input[type="checkbox"]'));
+          const marcados = checks.filter(c => c.checked).map(c => c.value);
+
+          const base = "🌊💙 Neste 7º mês, a gente viveu altos e baixos — e mesmo assim escolheu se adaptar e continuar juntos.";
+          const extra = marcados.length
+            ? " O que ficou mais forte pra mim foi: " + marcados.join(", ") + "."
+            : " E o mais importante: nós seguimos escolhendo um ao outro.";
+
+          if (output) {
+            output.textContent = base + extra;
+            output.classList.add("show");
+            output.style.display = "block";
+          }
+          return;
+        }
+
+        if (action === "limpar") {
+          root.querySelectorAll('.check-item input[type="checkbox"]').forEach(c => c.checked = false);
+          if (output) {
+            output.textContent = "";
+            output.classList.remove("show");
+            output.style.display = "none";
+          }
+          return;
+        }
+      });
+    })();
+    </script>
+
+    <script>
+      (() => {
+        const RELATIONSHIP_START = "2025-07-06"; 
+
+        const start = new Date(RELATIONSHIP_START + "T00:00:00");
+        if (isNaN(start.getTime())) return;
+
+        const now = new Date();
+        const anniversary = new Date(start);
+        anniversary.setFullYear(anniversary.getFullYear() + 1);
+
+        // Calcula quantos "meses completos" já passaram (1..12)
+        const monthsElapsed = (() => {
+          let m = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+          // se ainda não chegou no "dia do mês", não conta o mês atual
+          if (now.getDate() < start.getDate()) m -= 1;
+          // meses liberados = m + 1 (mês 1 no começo)
+          const unlocked = Math.min(12, Math.max(1, m + 1));
+          return unlocked;
+        })();
+
+        const allUnlocked = now >= anniversary;
+
+        const grid = document.getElementById("trail-grid");
+        const progressEl = document.getElementById("trail-progress");
+        const countdownEl = document.getElementById("trail-countdown");
+
+        const cards = Array.from(grid.querySelectorAll(".trail-card"));
+        cards.forEach((card) => {
+          const month = Number(card.getAttribute("data-month"));
+          const unlocked = allUnlocked || month <= monthsElapsed;
+
+          card.classList.toggle("locked", !unlocked);
+          card.setAttribute("aria-disabled", String(!unlocked));
+        });
+
+        // Texto de progresso
+        if (progressEl) {
+          progressEl.textContent = allUnlocked
+            ? "🎉 Tudo liberado! 1 ano completado!"
+            : `✅ Liberado até o mês ${monthsElapsed} de 12`;
+        }
+
+        // Contagem regressiva até 1 ano
+        if (countdownEl) {
+          if (allUnlocked) {
+            countdownEl.textContent = "💙 Parabéns pelo 1 ano!";
+          } else {
+            const diffMs = anniversary - now;
+            const days = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+            countdownEl.textContent = `⏳ Faltam ${days} dias para liberar tudo`;
+          }
+        }
+
+        // Modal (abre só se estiver liberado)
+        const modal = document.getElementById("trail-modal");
+        const modalImg = document.getElementById("trail-modal-img");
+        const caption = document.getElementById("trail-modal-caption");
+        const closeBtn = document.getElementById("trail-close");
+
+        grid.addEventListener("click", (e) => {
+          const card = e.target.closest(".trail-card");
+          if (!card) return;
+
+          if (card.classList.contains("locked")) return;
+
+          const img = card.querySelector("img");
+          const label = card.querySelector(".trail-label")?.textContent?.trim() || "";
+
+          modalImg.src = img.src;
+          modalImg.alt = img.alt || label;
+          caption.textContent = label;
+
+          modal.classList.add("show");
+          modal.setAttribute("aria-hidden", "false");
+        });
+
+        const close = () => {
+          modal.classList.remove("show");
+          modal.setAttribute("aria-hidden", "true");
+          modalImg.src = "";
+        };
+
+        closeBtn?.addEventListener("click", close);
+        modal?.addEventListener("click", (e) => {
+          if (e.target === modal) close();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") close();
+        });
       })();
       </script>
 
